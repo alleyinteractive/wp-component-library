@@ -16,7 +16,19 @@ class Test_Partials extends WP_UnitTestCase {
 	/**
 	 * Tests the behavior of parsing props.
 	 */
-	public function test_props() {
-		$this->assertTrue( true );
+	public function test_wpcl_classes() {
+		// Test combination of default classes with additional classes from a component.
+		ob_start();
+		wpcl_classes( [ 'a', 'b', 'c d' ] );
+		$classes = ob_get_contents();
+		ob_end_clean();
+		$this->assertEquals( 'a b c d', $classes );
+
+		// Test default classes only.
+		ob_start();
+		wpcl_classes( [ 'a', 'b', '' ] );
+		$classes = ob_get_contents();
+		ob_end_clean();
+		$this->assertEquals( 'a b', $classes );
 	}
 }
