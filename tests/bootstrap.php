@@ -35,7 +35,7 @@ function wp_component_library_manually_load_environment() {
 	);
 
 	// Load this plugin.
-	require_once dirname( __DIR__ ) . '/index.php';
+	require_once dirname( __DIR__ ) . '/wp-component-library.php';
 }
 tests_add_filter( 'muplugins_loaded', 'wp_component_library_manually_load_environment' );
 
