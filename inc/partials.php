@@ -37,5 +37,5 @@ function wpcl_classes( array $classes ): void {
  * @param array  $props Optional. An array of props for the component. Defaults to empty array.
  */
 function wpcl_component( string $name, array $props = [] ): void {
-	get_template_part( sprintf( 'components/%s/index', $name ), $props );
+	get_template_part( sprintf( 'components/%s/index', $name ), null, $props );
 }
