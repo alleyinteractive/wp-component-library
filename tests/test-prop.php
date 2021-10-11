@@ -42,12 +42,12 @@ class Test_Prop extends WP_UnitTestCase {
 	 */
 	public function data_set_default(): array {
 		return [
-			[ 'array', [] ],
-			[ 'bool', false ],
-			[ 'enum', 'foo' ],
-			[ 'number', 0 ],
-			[ 'object', new stdClass() ],
-			[ 'string', '' ],
+			'Test array default'  => [ 'array', [] ],
+			'Test bool default'   => [ 'bool', false ],
+			'Test enum default'   => [ 'enum', 'foo' ],
+			'Test number default' => [ 'number', 0 ],
+			'Test object default' => [ 'object', new stdClass() ],
+			'Test string default' => [ 'string', '' ],
 		];
 	}
 
@@ -59,12 +59,12 @@ class Test_Prop extends WP_UnitTestCase {
 	 */
 	public function data_set_value(): array {
 		return [
-			[ 'array', [], [ 'foo', 'bar' ] ],
-			[ 'bool', false, true ],
-			[ 'enum', 'foo', 'bar' ],
-			[ 'number', 0, 2 ],
-			[ 'object', new stdClass(), (object) [ 'a' => 'b' ] ],
-			[ 'string', '', 'test string' ],
+			'Test setting an array'  => [ 'array', [], [ 'foo', 'bar' ] ],
+			'Test setting a bool'    => [ 'bool', false, true ],
+			'Test setting an enum'   => [ 'enum', 'foo', 'bar' ],
+			'Test setting a number'  => [ 'number', 0, 2 ],
+			'Test setting an object' => [ 'object', new stdClass(), (object) [ 'a' => 'b' ] ],
+			'Test setting a string'  => [ 'string', '', 'test string' ],
 		];
 	}
 
@@ -76,7 +76,7 @@ class Test_Prop extends WP_UnitTestCase {
 	 */
 	public function data_validate_config(): array {
 		return [
-			[
+			'Test setting nothing at all'  => [
 				'',
 				[],
 				[
@@ -84,7 +84,7 @@ class Test_Prop extends WP_UnitTestCase {
 					'All props must have a description.',
 				],
 			],
-			[
+			'Test not setting a type'      => [
 				'test',
 				[
 					'description' => 'Test description',
@@ -94,7 +94,7 @@ class Test_Prop extends WP_UnitTestCase {
 					'All props must have a type.',
 				],
 			],
-			[
+			'Test setting an invalid type' => [
 				'test',
 				[
 					'description' => 'Test description',
@@ -104,7 +104,7 @@ class Test_Prop extends WP_UnitTestCase {
 					'The prop type must be one of the allowed types.',
 				],
 			],
-			[
+			'Test setting an invalid default for the array type' => [
 				'test',
 				[
 					'default'     => '',
@@ -115,7 +115,7 @@ class Test_Prop extends WP_UnitTestCase {
 					'The default value must be of the same type as the prop.',
 				],
 			],
-			[
+			'Test setting an invalid default for the bool type' => [
 				'test',
 				[
 					'default'     => '',
@@ -126,7 +126,7 @@ class Test_Prop extends WP_UnitTestCase {
 					'The default value must be of the same type as the prop.',
 				],
 			],
-			[
+			'Test setting an invalid default for the number type' => [
 				'test',
 				[
 					'default'     => '',
@@ -137,7 +137,7 @@ class Test_Prop extends WP_UnitTestCase {
 					'The default value must be of the same type as the prop.',
 				],
 			],
-			[
+			'Test setting an invalid default for the object type' => [
 				'test',
 				[
 					'default'     => '',
@@ -148,7 +148,7 @@ class Test_Prop extends WP_UnitTestCase {
 					'The default value must be of the same type as the prop.',
 				],
 			],
-			[
+			'Test setting an invalid default for the string type' => [
 				'test',
 				[
 					'default'     => 0,
@@ -159,7 +159,7 @@ class Test_Prop extends WP_UnitTestCase {
 					'The default value must be of the same type as the prop.',
 				],
 			],
-			[
+			'Test setting an invalid default for the enum type' => [
 				'test',
 				[
 					'allowed_values' => [ 'a', 'b', 'c' ],
@@ -171,7 +171,7 @@ class Test_Prop extends WP_UnitTestCase {
 					'For a prop type of enum, the default value must be one of the allowed values.',
 				],
 			],
-			[
+			'Test a successful prop registration for the array type' => [
 				'test',
 				[
 					'default'     => [ 'test' ],
@@ -180,7 +180,7 @@ class Test_Prop extends WP_UnitTestCase {
 				],
 				[],
 			],
-			[
+			'Test a successful prop registration for the bool type' => [
 				'test',
 				[
 					'default'     => true,
@@ -189,7 +189,7 @@ class Test_Prop extends WP_UnitTestCase {
 				],
 				[],
 			],
-			[
+			'Test a successful prop registration for the enum type' => [
 				'test',
 				[
 					'allowed_values' => [ 'a', 'b', 'c' ],
@@ -199,7 +199,7 @@ class Test_Prop extends WP_UnitTestCase {
 				],
 				[],
 			],
-			[
+			'Test a successful prop registration for the number type' => [
 				'test',
 				[
 					'default'     => 2,
@@ -208,7 +208,7 @@ class Test_Prop extends WP_UnitTestCase {
 				],
 				[],
 			],
-			[
+			'Test a successful prop registration for the object type' => [
 				'test',
 				[
 					'default'     => (object) [ 'a' => 'b' ],
@@ -217,7 +217,7 @@ class Test_Prop extends WP_UnitTestCase {
 				],
 				[],
 			],
-			[
+			'Test a successful prop registration for the string type' => [
 				'test',
 				[
 					'default'     => 'default',

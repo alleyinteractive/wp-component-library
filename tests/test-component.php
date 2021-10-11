@@ -23,12 +23,12 @@ class Test_Component extends WP_UnitTestCase {
 	 */
 	public function data_render(): array {
 		return [
-			[
+			'Test Button example 1' => [
 				'button',
 				0,
 				'<a class="button button--primary" href="https://www.example.org/newsletter">Sign Up for Our Newsletter</a>',
 			],
-			[
+			'Test button example 2' => [
 				'button',
 				1,
 				'<button class="button button--secondary newsletter-signup" id="newsletter-signup-footer" type="button">Sign Up for Our Newsletter</button>',

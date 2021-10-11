@@ -21,18 +21,19 @@ class Test_Classnames extends WP_UnitTestCase {
 	 *
 	 * This list of arguments was copied from the classnames test suite at
 	 * https://github.com/JedWatson/classnames/blob/master/tests to ensure
-	 * compatibility with the classnames npm package.
+	 * compatibility with the classnames npm package. However, some of the lists
+	 * were modified from the original to use PHP's falsy values instead of
+	 * JavaScript's (e.g., removing "undefined" and adding 0.0, -0.0, '', '0',
+	 * and []).
 	 *
 	 * @return array An array of arrays representing function arguments.
 	 */
 	public function data_get_classlist(): array {
 		return [
-			// It keeps object keys with truthy values.
-			[
+			'It keeps object keys with truthy values' => [
 				'a f',
 				[
 					[
-						// This list was modified from the original to use PHP's falsy values.
 						'a' => true,
 						'b' => false,
 						'c' => 0,
@@ -46,67 +47,47 @@ class Test_Classnames extends WP_UnitTestCase {
 					],
 				],
 			],
-
-			// It joins arrays of class names and ignores falsy values.
-			[
+			'It joins arrays of class names and ignores falsy values' => [
 				'a 1 b',
 				[ 'a', 0, null, 0.0, - 0.0, '', '0', [], true, 1, 'b' ],
 			],
-
-			// It supports heterogenous arguments.
-			[
+			'It supports heterogenous arguments'      => [
 				'a b',
 				[ [ 'a' => true ], 'b', 0 ],
 			],
-
-			// It should be trimmed.
-			[
+			'It should be trimmed'                    => [
 				'b',
 				[ '', 'b', [], '' ],
 			],
-
-			// It returns an empty string for an empty configuration.
-			[
+			'It returns an empty string for an empty configuration' => [
 				'',
 				[ [] ],
 			],
-
-			// It supports an array of class names.
-			[
+			'It supports an array of class names'     => [
 				'a b',
 				[ [ 'a', 'b' ] ],
 			],
-
-			// It joins array arguments with string arguments.
-			[
+			'It joins array arguments with string arguments, example 1' => [
 				'a b c',
 				[ [ 'a', 'b' ], 'c' ],
 			],
-			[
+			'It joins array arguments with string arguments, example 2' => [
 				'c a b',
 				[ 'c', [ 'a', 'b' ] ],
 			],
-
-			// It handles multiple array arguments.
-			[
+			'It handles multiple array arguments'     => [
 				'a b c d',
 				[ [ 'a', 'b' ], [ 'c', 'd' ] ],
 			],
-
-			// It handles arrays that include falsy and true values.
-			[
+			'It handles arrays that include falsy and true values' => [
 				'a b',
 				[ [ 'a', 0, null, 0.0, - 0.0, '', '0', [], false, true, 'b' ] ],
 			],
-
-			// It handles arrays that include arrays.
-			[
+			'It handles arrays that include arrays'   => [
 				'a b c',
 				[ [ 'a', [ 'b', 'c' ] ] ],
 			],
-
-			// It handles arrays that include objects.
-			[
+			'It handles arrays that include objects'  => [
 				'a b',
 				[
 					[
@@ -118,33 +99,23 @@ class Test_Classnames extends WP_UnitTestCase {
 					],
 				],
 			],
-
-			// It handles deep array recursion.
-			[
+			'It handles deep array recursion'         => [
 				'a b c d',
 				[ [ 'a', [ 'b', [ 'c', [ 'd' => true ] ] ] ] ],
 			],
-
-			// It handles arrays that are empty.
-			[
+			'It handles arrays that are empty'        => [
 				'a',
 				[ 'a', [] ],
 			],
-
-			// It handles nested arrays that have empty nested arrays.
-			[
+			'It handles nested arrays that have empty nested arrays' => [
 				'a',
 				[ 'a', [ [] ] ],
 			],
-
-			// It should dedupe.
-			[
+			'It should dedupe'                        => [
 				'foo bar',
 				[ 'foo', 'bar', 'foo', 'bar', [ 'foo' => true ] ],
 			],
-
-			// It should make sure subsequent objects can remove/add classes.
-			[
+			'It should make sure subsequent objects can remove/add classes' => [
 				'foo bar',
 				[
 					'foo',
@@ -155,21 +126,19 @@ class Test_Classnames extends WP_UnitTestCase {
 					],
 				],
 			],
-
-			// It should make sure an array with a falsy value wipes out previous classes.
-			[
+			'It should make sure an array with a falsy value wipes out previous classes, example 1' => [
 				'1 b',
 				[ 'foo foo', 0, null, '', true, 1, 'b', [ 'foo' => false ] ],
 			],
-			[
+			'It should make sure an array with a falsy value wipes out previous classes, example 2' => [
 				'foobar bar',
 				[ 'foo', 'foobar', 'bar', [ 'foo' => false ] ],
 			],
-			[
+			'It should make sure an array with a falsy value wipes out previous classes, example 3' => [
 				'foo-bar bar',
 				[ 'foo', 'foo-bar', 'bar', [ 'foo' => false ] ],
 			],
-			[
+			'It should make sure an array with a falsy value wipes out previous classes, example 4' => [
 				'-moz-foo-bar bar',
 				[ 'foo', '-moz-foo-bar', 'bar', [ 'foo' => false ] ],
 			],
