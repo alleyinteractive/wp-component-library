@@ -17,7 +17,7 @@ use WP_Component_Library\Classnames;
  * classname => condition, where condition is evaluated, and if truthy, the
  * classname is included in the list.
  *
- * @param array ...$args A variable number of arguments that can be strings, arrays, or associative arrays.
+ * @param mixed ...$args A variable number of arguments that can be strings, arrays, or associative arrays.
  */
 function wpcl_classnames( ...$args ): void {
 	$classnames = new Classnames( ...$args );

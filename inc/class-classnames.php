@@ -25,7 +25,7 @@ class Classnames {
 	 * Constructor function. Accepts a variable-length list of arguments to be
 	 * parsed and converted into classnames.
 	 *
-	 * @param array ...$args An array of arguments passed to this function.
+	 * @param mixed ...$args An array of arguments passed to this function.
 	 */
 	public function __construct( ...$args ) {
 		foreach ( $args as $arg ) {

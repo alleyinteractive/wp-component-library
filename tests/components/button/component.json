@@ -1,0 +1,44 @@
+{
+  "examples": [
+    {
+      "_title": "A link that is styled to look like a button.",
+      "href": "https://www.example.org/newsletter",
+      "text": "Sign Up for Our Newsletter",
+      "variant": "primary"
+    },
+    {
+      "_title": "A button with a custom class that will be targeted by JavaScript.",
+      "class": "newsletter-signup",
+      "text": "Sign Up for Our Newsletter",
+      "variant": "secondary"
+    }
+  ],
+  "props": {
+    "href": {
+      "default": "",
+      "description": "If provided, renders `a` instead of `button`.",
+      "required": false,
+      "type": "string"
+    },
+    "text": {
+      "description": "Displays the given text inside the button.",
+      "required": true,
+      "type": "string"
+    },
+    "type": {
+      "allowed_values": ["button", "submit", "reset"],
+      "default": "button",
+      "description": "If rendering a button element, the type to use.",
+      "required": false,
+      "type": "enum"
+    },
+    "variant": {
+      "allowed_values": ["primary", "secondary"],
+      "default": "primary",
+      "description": "Specifies the button's style.",
+      "required": false,
+      "type": "enum"
+    }
+  },
+  "title": "Button"
+}
