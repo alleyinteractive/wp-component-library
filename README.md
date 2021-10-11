@@ -25,13 +25,86 @@ establish the following directory structure:
     * {theme-name}
       * components
         * {component-name}
-          * index.php - The file that renders the component.
-          * README.md - An explanation of what the component is, what props it accepts, and how it should be used.
-          * examples.json - A JSON file containing an array of objects representing props to pass to the component to generate example uses.
-          * style.scss - Optional. A stylesheet that defines styles for the component. See the Loading Styles section below for more info.
+          * component.json - A JSON file containing a title for the component,
+            props for the component, and example data for admin previews. See
+            below for more info.
+          * README.md - An explanation of what the component is, what props it
+            accepts, and how it should be used.
+          * style.scss - Optional. A stylesheet that defines styles for the
+            component. See the Loading Styles section below for more info.
+          * template.php - The file that renders the component.
 
-// TODO: ADD PROPS DEFINITION
+For an example, look in the
+[tests/components/button directory](tests/components/button).
 
-### Example index.php
+### `component.json`
 
-TBD
+A JSON file with three top-level keys: `examples`, `props`, and `title`.
+
+#### `examples`
+
+An array of objects, each of which should have a `_title` property that defines
+the title for the example in the admin, and otherwise contains key/value pairs
+for props.
+
+#### `props`
+
+An array of objects defining props for the component, the spec for which is as follows:
+
+| Property       | Default  | Required | Type   | Description                                                                               |
+|----------------|----------|----------|--------|-------------------------------------------------------------------------------------------|
+| allowed_values | []       | No       | array  | If the `type` is set to `enum`, the list of allowed values.                               |
+| default        | ''       | No       | string | The default value to use if none is provided in component props.                          |
+| description    |          | Yes      | string | The description of the component to display in the admin.                                 |
+| required       | false    | No       | bool   | Whether a value for the prop is required or not.                                          |
+| type           | 'string' | No       | string | The prop type. Possible values are 'array', 'bool', 'enum', 'number', 'object', 'string'. |
+
+#### `title`
+
+A string that names the component when it is viewed in the admin. For example,
+"Button."
+
+#### Example
+
+An example `component.json` can be found in
+[tests/components/button/component.json](tests/components/button/component.json).
+
+### `README.md`
+
+The file that describes your component. The examples and props sections of the
+documentation will be dynamically compiled from the definitions in
+`component.json`, but the README will be used for a long description of what
+the component is used for.
+
+#### Example
+
+An example `README.md` can be found in
+[tests/components/button/README.md](tests/components/button/README.md).
+
+### `style.scss`
+
+A stylesheet that contains styles that are scoped to the component. Whether and
+how you work with these stylesheets is up to you, as they will need to be
+integrated into your theme's asset builder. However, globbing them using
+[node-sass-glob-importer](https://www.npmjs.com/package/node-sass-glob-importer)
+is a good idea, as it will allow you to create styles for new components simply
+by adding a stylesheet to a directory rather than needing to import the
+stylesheet into an index file.
+
+#### Example
+
+An example `style.scss` can be found in
+[tests/components/button/style.scss](tests/components/button/style.scss).
+
+### `template.php`
+
+The template file behaves like a normal template file called by
+`get_template_part`. It has access to all of the same variables. However, the
+props system will enforce props rules and set default values for you, so the
+`$args` variable that contains the arguments for the template is a little
+smarter than the WordPress default.
+
+#### Example
+
+An example `template.php` can be found in
+[tests/components/button/template.php](tests/components/button/template.php).
