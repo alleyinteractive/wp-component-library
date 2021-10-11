@@ -61,7 +61,7 @@ class Classnames {
 	 * @param string $classname The classname to remove.
 	 */
 	private function remove_classname( string $classname ) {
-		$classname = trim( $classname );
+		$classname        = trim( $classname );
 		$this->classnames = array_values(
 			array_filter(
 				$this->classnames,

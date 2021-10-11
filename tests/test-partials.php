@@ -106,7 +106,15 @@ class Test_Partials extends WP_UnitTestCase {
 			// It handles arrays that include objects.
 			[
 				'a b',
-				[ [ 'a', [ 'b' => true, 'c' => false ] ] ],
+				[
+					[
+						'a',
+						[
+							'b' => true,
+							'c' => false,
+						],
+					],
+				],
 			],
 
 			// It handles deep array recursion.
@@ -136,7 +144,14 @@ class Test_Partials extends WP_UnitTestCase {
 			// It should make sure subsequent objects can remove/add classes.
 			[
 				'foo bar',
-				[ 'foo', [ 'foo' => false ], [ 'foo' => true, 'bar' => true ] ],
+				[
+					'foo',
+					[ 'foo' => false ],
+					[
+						'foo' => true,
+						'bar' => true,
+					],
+				],
 			],
 
 			// It should make sure an array with a falsy value wipes out previous classes.
