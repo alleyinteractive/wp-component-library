@@ -7,8 +7,6 @@
  */
 
 use WP_Component_Library\Component;
-use WP_Component_Library\Example;
-use WP_Component_Library\Prop;
 
 /**
  * A class to test the behavior of the Component class.
@@ -17,6 +15,27 @@ use WP_Component_Library\Prop;
  * @subpackage Tests
  */
 class Test_Component extends WP_UnitTestCase {
+	/**
+	 * A data provider for the test_render function. Returns an array of arrays
+	 * representing function arguments.
+	 *
+	 * @return array An array of arrays representing function arguments.
+	 */
+	public function data_render(): array {
+		return [
+			[
+				'button',
+				0,
+				'<a class="button button--primary" href="https://www.example.org/newsletter">Sign Up for Our Newsletter</a>',
+			],
+			[
+				'button',
+				1,
+				'<button class="button button--secondary newsletter-signup" id="newsletter-signup-footer" type="button">Sign Up for Our Newsletter</button>',
+			],
+		];
+	}
+
 	/**
 	 * A callback function for the wpcl_component_path filter. Overrides the
 	 * default location, which assumes we're looking for a component in the
@@ -70,6 +89,7 @@ class Test_Component extends WP_UnitTestCase {
 		$this->assertEquals(
 			[
 				'class'   => 'newsletter-signup',
+				'id'      => 'newsletter-signup-footer',
 				'text'    => 'Sign Up for Our Newsletter',
 				'variant' => 'secondary',
 			],
@@ -86,13 +106,13 @@ class Test_Component extends WP_UnitTestCase {
 		$this->assertEquals( true, $props['text']->get_required() );
 		$this->assertEquals( 'string', $props['text']->get_type() );
 		$this->assertEquals( 'type', $props['type']->get_name() );
-		$this->assertEquals( ['button', 'submit', 'reset'], $props['type']->get_allowed_values() );
+		$this->assertEquals( [ 'button', 'submit', 'reset' ], $props['type']->get_allowed_values() );
 		$this->assertEquals( 'button', $props['type']->get_default() );
 		$this->assertEquals( 'If rendering a button element, the type to use.', $props['type']->get_description() );
 		$this->assertEquals( false, $props['type']->get_required() );
 		$this->assertEquals( 'enum', $props['type']->get_type() );
 		$this->assertEquals( 'variant', $props['variant']->get_name() );
-		$this->assertEquals( ['primary', 'secondary'], $props['variant']->get_allowed_values() );
+		$this->assertEquals( [ 'primary', 'secondary' ], $props['variant']->get_allowed_values() );
 		$this->assertEquals( 'primary', $props['variant']->get_default() );
 		$this->assertEquals( 'Specifies the button\'s style.', $props['variant']->get_description() );
 		$this->assertEquals( false, $props['variant']->get_required() );
@@ -102,14 +122,31 @@ class Test_Component extends WP_UnitTestCase {
 	/**
 	 * Tests the component by loading example data for the example component and
 	 * rendering it.
+	 *
+	 * @dataProvider data_render
+	 *
+	 * @param string $component The name of the sample component to load.
+	 * @param int    $index     The index of the example to load.
+	 * @param string $expected  The expected HTML output, minus newlines, and with whitespace trimmed.
 	 */
-	public function test_render() {
-		$component = new Component( 'button' );
-		$component->load_example_data( 0 );
+	public function test_render( string $component, int $index, string $expected ) {
+		// Render the component's output.
+		$component = new Component( $component );
+		$component->load_example_data( $index );
 		ob_start();
 		$component->render();
 		$output = ob_get_contents();
 		ob_end_clean();
-		$this->assertEquals( '', $output );
+
+		// Clean up the component's output by running it through DOMDocument to strip whitespace.
+		libxml_use_internal_errors( true );
+		$doc = new DOMDocument();
+		$doc->loadHTML( mb_convert_encoding( $output, 'HTML-ENTITIES', 'UTF-8' ) );
+		$xpath  = new DOMXPath( $doc );
+		$node   = $xpath->query( '//body' )->item( 0 )->childNodes->item( 0 );
+		$output = $node->ownerDocument->saveHTML( $node ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		libxml_clear_errors();
+
+		$this->assertEquals( $expected, $output );
 	}
 }

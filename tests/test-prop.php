@@ -28,7 +28,7 @@ class Test_Prop extends WP_UnitTestCase {
 			'type'        => $type,
 		];
 		if ( 'enum' === $type ) {
-			$properties['allowed_values'] = ['foo', 'bar'];
+			$properties['allowed_values'] = [ 'foo', 'bar' ];
 		}
 
 		return new Prop( 'test', $properties );
@@ -162,7 +162,7 @@ class Test_Prop extends WP_UnitTestCase {
 			[
 				'test',
 				[
-					'allowed_values' => ['a', 'b', 'c'],
+					'allowed_values' => [ 'a', 'b', 'c' ],
 					'default'        => 'd',
 					'description'    => 'Test description',
 					'type'           => 'enum',
@@ -192,7 +192,7 @@ class Test_Prop extends WP_UnitTestCase {
 			[
 				'test',
 				[
-					'allowed_values' => ['a', 'b', 'c'],
+					'allowed_values' => [ 'a', 'b', 'c' ],
 					'default'        => 'a',
 					'description'    => 'Test description',
 					'type'           => 'enum',

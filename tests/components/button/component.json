@@ -9,6 +9,7 @@
     {
       "_title": "A button with a custom class that will be targeted by JavaScript.",
       "class": "newsletter-signup",
+      "id": "newsletter-signup-footer",
       "text": "Sign Up for Our Newsletter",
       "variant": "secondary"
     }

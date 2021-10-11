@@ -7,19 +7,19 @@
  */
 
 $is_button = empty( $args['href'] );
-$tag       = $is_button ? 'button' : 'a';
+$html_tag  = $is_button ? 'button' : 'a';
 
 ?>
 
-<<?php echo esc_html( $tag ); ?>
+<<?php echo esc_html( $html_tag ); ?>
 	class="<?php wpcl_classnames( 'button', sprintf( 'button--%s', $args['variant'] ), $args['class'] ); ?>"
 	<?php if ( ! $is_button ) : ?>
 		href="<?php echo esc_url( $args['href'] ); ?>"
 	<?php endif; ?>
 	<?php if ( ! empty( $args['id'] ) ) : ?>
-		id="<?php echo esc_url( $args['id'] ); ?>"
+		id="<?php echo esc_attr( $args['id'] ); ?>"
 	<?php endif; ?>
 	<?php if ( $is_button ) : ?>
 		type="<?php echo esc_attr( $args['type'] ); ?>"
 	<?php endif; ?>
-><?php echo esc_html( $args['text'] ); ?></<?php echo esc_html( $tag ); ?>>
+><?php echo esc_html( $args['text'] ); ?></<?php echo esc_html( $html_tag ); ?>>

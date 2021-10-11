@@ -120,9 +120,13 @@ class Component {
 		foreach ( $this->props as $prop_name => $prop ) {
 			$props[ $prop_name ] = $prop->get_value();
 		}
+
+		/* phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound */
 		$slug = sprintf( 'components/%s/template', $this->name );
 		do_action( "get_template_part_{$slug}", $slug, null, $props );
 		do_action( 'get_template_part', $slug, null, [ "{$slug}.php" ], $props );
+		/* phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound */
+
 		load_template( sprintf( '%s/template.php', $this->path ), false, $props );
 	}
 
@@ -137,7 +141,7 @@ class Component {
 		}
 
 		// Load the contents of the configuration.
-		$config = json_decode( file_get_contents( $filepath ), true );
+		$config = json_decode( file_get_contents( $filepath ), true ); // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
 
 		// Set the title.
 		$this->title = $config['title'] ?? '';
@@ -179,8 +183,8 @@ class Component {
 	 */
 	private function locate_component(): void {
 		$try = [
-			STYLESHEETPATH,
-			TEMPLATEPATH,
+			STYLESHEETPATH, // phpcs:ignore WordPress.WP.DiscouragedConstants.STYLESHEETPATHUsageFound
+			TEMPLATEPATH, // phpcs:ignore WordPress.WP.DiscouragedConstants.TEMPLATEPATHUsageFound
 			ABSPATH . WPINC . '/theme-compat/',
 		];
 		foreach ( $try as $base ) {

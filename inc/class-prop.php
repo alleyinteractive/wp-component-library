@@ -20,7 +20,7 @@ class Prop {
 	 *
 	 * @type array
 	 */
-	const TYPES = ['array', 'bool', 'enum', 'number', 'object', 'string'];
+	const TYPES = [ 'array', 'bool', 'enum', 'number', 'object', 'string' ];
 
 	/**
 	 * The allowed values for this prop, if the type is 'enum'.
@@ -229,7 +229,7 @@ class Prop {
 				$this->default = 0;
 				break;
 			case 'object':
-				$this->default = new stdClass;
+				$this->default = new stdClass();
 				break;
 			case 'string':
 				$this->default = '';
