@@ -34,12 +34,21 @@ class Classnames {
 	}
 
 	/**
-	 * Magic method for overriding string output to return a space-separated
-	 * list of classnames based on what was parsed via the constructor.
+	 * Returns the array of classes that were parsed via the constructor.
+	 *
+	 * @return array An array of class names.
+	 */
+	public function get_classes(): array {
+		return $this->classnames;
+	}
+
+	/**
+	 * Returns a space-separated list of classnames based on what was parsed via
+	 * the constructor.
 	 *
 	 * @return string A list of class names.
 	 */
-	public function __toString(): string {
+	public function get_classlist(): string {
 		return implode( ' ', $this->classnames );
 	}
 

@@ -14,7 +14,7 @@
  */
 class Test_Classnames extends WP_UnitTestCase {
 	/**
-	 * A data provider for the test_tostring function. Returns an array of
+	 * A data provider for the test_get_classlist function. Returns an array of
 	 * arrays representing function arguments.
 	 *
 	 * This list of arguments was copied from the classnames test suite at
@@ -23,7 +23,7 @@ class Test_Classnames extends WP_UnitTestCase {
 	 *
 	 * @return array An array of arrays representing function arguments.
 	 */
-	public function data_tostring(): array {
+	public function data_get_classlist(): array {
 		return [
 			// It keeps object keys with truthy values.
 			[
@@ -175,16 +175,15 @@ class Test_Classnames extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tests the behavior of stringifying an instance of the Classnames class.
+	 * Tests the behavior of the get_classlist function.
 	 *
-	 * @dataProvider data_tostring
+	 * @dataProvider data_get_classlist
 	 *
 	 * @param string $expected The expected space-separated list of classes.
 	 * @param array  $args     Arguments to pass to the Classnames constructor.
 	 */
-	public function test_tostring( string $expected, array $args ) {
+	public function test_get_classlist( string $expected, array $args ) {
 		$classnames = new WP_Component_Library\Classnames( ...$args );
-		$classes    = (string) $classnames;
-		$this->assertEquals( $expected, $classes );
+		$this->assertEquals( $expected, $classnames->get_classlist() );
 	}
 }
