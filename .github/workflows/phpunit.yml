@@ -71,7 +71,7 @@ jobs:
       - name: Install WordPress and Copy Project
         shell: bash
         run: |
-          bash bin/install-wp-tests.sh wordpress_unit_tests root '' 127.0.0.1 $WP_VERSION
+          bash <(curl -s \"https://raw.githubusercontent.com/wp-cli/sample-plugin/master/bin/install-wp-tests.sh\") wordpress_unit_tests root '' 127.0.0.1 $WP_VERSION
           # Go into the core directory and replace wp-content.
           # mkdir -p ${WP_CORE_DIR}/wp-content/plugins/wp-component-library
           rm -rf ${WP_CORE_DIR}/wp-content/plugins/wp-component-library
