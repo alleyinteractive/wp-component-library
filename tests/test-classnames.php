@@ -1,20 +1,20 @@
 <?php
 /**
- * WP Component Library Tests: Test_Partials class
+ * WP Component Library Tests: Test_Classnames class
  *
  * @package WP_Component_Library
  * @subpackage Tests
  */
 
 /**
- * A class to test the behavior of loading partials.
+ * A class to test the behavior of the Classnames class.
  *
  * @package WP_Component_Library
  * @subpackage Tests
  */
-class Test_Partials extends WP_UnitTestCase {
+class Test_Classnames extends WP_UnitTestCase {
 	/**
-	 * A data provider for the test_classnames function. Returns an array of
+	 * A data provider for the test_tostring function. Returns an array of
 	 * arrays representing function arguments.
 	 *
 	 * This list of arguments was copied from the classnames test suite at
@@ -23,7 +23,7 @@ class Test_Partials extends WP_UnitTestCase {
 	 *
 	 * @return array An array of arrays representing function arguments.
 	 */
-	public function data_classnames(): array {
+	public function data_tostring(): array {
 		return [
 			// It keeps object keys with truthy values.
 			[
@@ -175,18 +175,16 @@ class Test_Partials extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tests the behavior of the classnames function.
+	 * Tests the behavior of stringifying an instance of the Classnames class.
 	 *
-	 * @dataProvider data_classnames
+	 * @dataProvider data_tostring
 	 *
-	 * @param string $expected The expected result of the function call with the provided arguments.
-	 * @param array  $args     Arguments to pass to the wpcl_classnames function.
+	 * @param string $expected The expected space-separated list of classes.
+	 * @param array  $args     Arguments to pass to the Classnames constructor.
 	 */
-	public function test_classnames( string $expected, array $args ) {
-		ob_start();
-		wpcl_classnames( ...$args );
-		$classes = ob_get_contents();
-		ob_end_clean();
+	public function test_tostring( string $expected, array $args ) {
+		$classnames = new WP_Component_Library\Classnames( ...$args );
+		$classes    = (string) $classnames;
 		$this->assertEquals( $expected, $classes );
 	}
 }
