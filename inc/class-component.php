@@ -51,12 +51,14 @@ class Component {
 	/**
 	 * Constructor. Accepts the name of the component.
 	 *
-	 * @param string $name The name of the component.
+	 * @param string $name  The name of the component.
+	 * @param array  $props Values for props for this component.
 	 */
-	public function __construct( string $name ) {
+	public function __construct( string $name, array $props = [] ) {
 		$this->name = $name;
 		$this->locate_component();
 		$this->load_config();
+		$this->load_props( $props );
 	}
 
 	/**
@@ -96,6 +98,35 @@ class Component {
 	}
 
 	/**
+	 * Loads example data from the example at the given index.
+	 *
+	 * @param int $index The index of the example data to load.
+	 */
+	public function load_example_data( int $index ) {
+		if ( isset( $this->examples[ $index ] ) ) {
+			$this->load_props( $this->examples[ $index ]->get_props() );
+		}
+	}
+
+	/**
+	 * Renders this template part, using the props system to validate values
+	 * and provide fallbacks. Mimics the behavior of get_template_part, but
+	 * uses the negotiated path established by locate_component instead of
+	 * WP's built-in template locator. Fires the same hooks as get_template_part
+	 * for increased compatibility with existing hooks and workflows.
+	 */
+	public function render() {
+		$props = [];
+		foreach ( $this->props as $prop_name => $prop ) {
+			$props[ $prop_name ] = $prop->get_value();
+		}
+		$slug = sprintf( 'components/%s/template', $this->name );
+		do_action( "get_template_part_{$slug}", $slug, null, $props );
+		do_action( 'get_template_part', $slug, null, [ "{$slug}.php" ], $props );
+		load_template( sprintf( '%s/template.php', $this->path ), false, $props );
+	}
+
+	/**
 	 * Loads configuration from a component.json file in the path.
 	 */
 	private function load_config(): void {
@@ -120,7 +151,24 @@ class Component {
 
 		// Loop over props and add them to this component's definition.
 		foreach ( $config['props'] ?? [] as $prop_name => $prop_definition ) {
-			$this->props[] = new Prop( $prop_name, $prop_definition );
+			$this->props[ $prop_name ] = new Prop( $prop_name, $prop_definition );
+		}
+
+		// Add props for class and id, which are supported on all components.
+		$this->props['class'] = new Prop( 'class', [ 'description' => __( 'Additional classes to apply to the element.', 'wp-component-library' ) ] );
+		$this->props['id']    = new Prop( 'id', [ 'description' => __( 'The HTML ID to apply to the element.', 'wp-component-library' ) ] );
+	}
+
+	/**
+	 * Loads prop values with what is provided.
+	 *
+	 * @param array $props An associative array of prop names to values.
+	 */
+	private function load_props( array $props ) {
+		foreach ( $props as $prop_name => $prop_value ) {
+			if ( isset( $this->props[ $prop_name ] ) ) {
+				$this->props[ $prop_name ]->set_value( $prop_value );
+			}
 		}
 	}
 

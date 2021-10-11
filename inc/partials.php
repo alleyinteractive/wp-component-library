@@ -6,6 +6,7 @@
  */
 
 use WP_Component_Library\Classnames;
+use WP_Component_Library\Component;
 
 /**
  * A PHP implementation of the `classnames` npm package. Makes it easy to both
@@ -21,7 +22,7 @@ use WP_Component_Library\Classnames;
  */
 function wpcl_classnames( ...$args ): void {
 	$classnames = new Classnames( ...$args );
-	echo esc_attr( $classnames );
+	echo esc_attr( $classnames->get_classlist() );
 }
 
 /**
@@ -31,5 +32,6 @@ function wpcl_classnames( ...$args ): void {
  * @param array  $props Optional. An array of props for the component. Defaults to empty array.
  */
 function wpcl_component( string $name, array $props = [] ): void {
-	get_template_part( sprintf( 'components/%s/index', $name ), null, $props );
+	$component = new Component( $name, $props );
+	$component->render();
 }

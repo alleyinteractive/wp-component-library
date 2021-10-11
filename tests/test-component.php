@@ -75,27 +75,41 @@ class Test_Component extends WP_UnitTestCase {
 			],
 			$examples[1]->get_props()
 		);
-		$this->assertEquals( 'href', $props[0]->get_name() );
-		$this->assertEquals( '', $props[0]->get_default() );
-		$this->assertEquals( 'If provided, renders `a` instead of `button`.', $props[0]->get_description() );
-		$this->assertEquals( false, $props[0]->get_required() );
-		$this->assertEquals( 'string', $props[0]->get_type() );
-		$this->assertEquals( 'text', $props[1]->get_name() );
-		$this->assertEquals( '', $props[1]->get_default() );
-		$this->assertEquals( 'Displays the given text inside the button.', $props[1]->get_description() );
-		$this->assertEquals( true, $props[1]->get_required() );
-		$this->assertEquals( 'string', $props[1]->get_type() );
-		$this->assertEquals( 'type', $props[2]->get_name() );
-		$this->assertEquals( ['button', 'submit', 'reset'], $props[2]->get_allowed_values() );
-		$this->assertEquals( 'button', $props[2]->get_default() );
-		$this->assertEquals( 'If rendering a button element, the type to use.', $props[2]->get_description() );
-		$this->assertEquals( false, $props[2]->get_required() );
-		$this->assertEquals( 'enum', $props[2]->get_type() );
-		$this->assertEquals( 'variant', $props[3]->get_name() );
-		$this->assertEquals( ['primary', 'secondary'], $props[3]->get_allowed_values() );
-		$this->assertEquals( 'primary', $props[3]->get_default() );
-		$this->assertEquals( 'Specifies the button\'s style.', $props[3]->get_description() );
-		$this->assertEquals( false, $props[3]->get_required() );
-		$this->assertEquals( 'enum', $props[3]->get_type() );
+		$this->assertEquals( 'href', $props['href']->get_name() );
+		$this->assertEquals( '', $props['href']->get_default() );
+		$this->assertEquals( 'If provided, renders `a` instead of `button`.', $props['href']->get_description() );
+		$this->assertEquals( false, $props['href']->get_required() );
+		$this->assertEquals( 'string', $props['href']->get_type() );
+		$this->assertEquals( 'text', $props['text']->get_name() );
+		$this->assertEquals( '', $props['text']->get_default() );
+		$this->assertEquals( 'Displays the given text inside the button.', $props['text']->get_description() );
+		$this->assertEquals( true, $props['text']->get_required() );
+		$this->assertEquals( 'string', $props['text']->get_type() );
+		$this->assertEquals( 'type', $props['type']->get_name() );
+		$this->assertEquals( ['button', 'submit', 'reset'], $props['type']->get_allowed_values() );
+		$this->assertEquals( 'button', $props['type']->get_default() );
+		$this->assertEquals( 'If rendering a button element, the type to use.', $props['type']->get_description() );
+		$this->assertEquals( false, $props['type']->get_required() );
+		$this->assertEquals( 'enum', $props['type']->get_type() );
+		$this->assertEquals( 'variant', $props['variant']->get_name() );
+		$this->assertEquals( ['primary', 'secondary'], $props['variant']->get_allowed_values() );
+		$this->assertEquals( 'primary', $props['variant']->get_default() );
+		$this->assertEquals( 'Specifies the button\'s style.', $props['variant']->get_description() );
+		$this->assertEquals( false, $props['variant']->get_required() );
+		$this->assertEquals( 'enum', $props['variant']->get_type() );
+	}
+
+	/**
+	 * Tests the component by loading example data for the example component and
+	 * rendering it.
+	 */
+	public function test_render() {
+		$component = new Component( 'button' );
+		$component->load_example_data( 0 );
+		ob_start();
+		$component->render();
+		$output = ob_get_contents();
+		ob_end_clean();
+		$this->assertEquals( '', $output );
 	}
 }
