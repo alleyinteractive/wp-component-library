@@ -6,6 +6,8 @@
  * @subpackage Tests
  */
 
+use WP_Component_Library\Classnames;
+
 /**
  * A class to test the behavior of the Classnames class.
  *
@@ -183,7 +185,7 @@ class Test_Classnames extends WP_UnitTestCase {
 	 * @param array  $args     Arguments to pass to the Classnames constructor.
 	 */
 	public function test_get_classlist( string $expected, array $args ) {
-		$classnames = new WP_Component_Library\Classnames( ...$args );
+		$classnames = new Classnames( ...$args );
 		$this->assertEquals( $expected, $classnames->get_classlist() );
 	}
 }

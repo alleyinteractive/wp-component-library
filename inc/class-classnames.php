@@ -19,7 +19,7 @@ class Classnames {
 	 *
 	 * @var array
 	 */
-	private $classnames = [];
+	private array $classnames = [];
 
 	/**
 	 * Constructor function. Accepts a variable-length list of arguments to be
