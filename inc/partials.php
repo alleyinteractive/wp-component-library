@@ -5,29 +5,23 @@
  * @package WP_Component_Library
  */
 
+use WP_Component_Library\Classnames;
+
 /**
- * Given an array of classes, combines them into a classes string and safely
- * outputs them.
+ * A PHP implementation of the `classnames` npm package. Makes it easy to both
+ * combine lists of classes and conditionally include classes.
  *
- * @param array $classes An array of classes to apply to an element.
+ * Pass a variable-length number of arguments to this function to output a
+ * class list. Strings and arrays of strings are added to the class list, and
+ * associative arrays with non-numerical keys are assumed to be in the form of
+ * classname => condition, where condition is evaluated, and if truthy, the
+ * classname is included in the list.
+ *
+ * @param array ...$args A variable number of arguments that can be strings, arrays, or associative arrays.
  */
-function wpcl_classes( array $classes ): void {
-	// Combine into a class list string.
-	$class_list = implode( ' ', $classes );
-
-	// Re-explode to separate classes.
-	$class_list = explode( ' ', $class_list );
-
-	// Sanitize each class name.
-	$class_list = array_map( 'sanitize_html_class', $class_list );
-
-	// Remove any empty items.
-	$class_list = array_filter( $class_list );
-
-	// Combine back into a string.
-	$class_list = implode( ' ', $class_list );
-
-	echo esc_attr( $class_list );
+function wpcl_classnames( ...$args ): void {
+	$classnames = new Classnames( ...$args );
+	echo esc_attr( $classnames );
 }
 
 /**

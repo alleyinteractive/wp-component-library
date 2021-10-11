@@ -15,4 +15,8 @@
  * Author: Alley
  */
 
+// Classes.
+require_once __DIR__ . '/inc/class-classnames.php';
+
+// Helpers.
 require_once __DIR__ . '/inc/partials.php';
