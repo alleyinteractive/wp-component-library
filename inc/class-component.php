@@ -116,6 +116,12 @@ class Component {
 	 * for increased compatibility with existing hooks and workflows.
 	 */
 	public function render() {
+		// Ensure the template file exists before attempting to render it.
+		if ( ! file_exists( sprintf( '%s/template.php', $this->path ) ) ) {
+			return;
+		}
+
+		// Populate values for all props, using defaults if no value is provided.
 		$props = [];
 		foreach ( $this->props as $prop_name => $prop ) {
 			$props[ $prop_name ] = $prop->get_value();
@@ -188,7 +194,7 @@ class Component {
 			ABSPATH . WPINC . '/theme-compat/',
 		];
 		foreach ( $try as $base ) {
-			if ( file_exists( sprintf( '%s/components/%s/template', $base, $this->name ) ) ) {
+			if ( file_exists( sprintf( '%s/components/%s/template.php', $base, $this->name ) ) ) {
 				$this->path = sprintf( '%s/components/%s', $base, $this->name );
 			}
 		}
