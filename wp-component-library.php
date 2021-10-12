@@ -22,4 +22,5 @@ require_once __DIR__ . '/inc/class-example.php';
 require_once __DIR__ . '/inc/class-prop.php';
 
 // Helpers.
+require_once __DIR__ . '/inc/hooks.php';
 require_once __DIR__ . '/inc/partials.php';

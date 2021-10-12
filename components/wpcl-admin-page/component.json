@@ -1,0 +1,13 @@
+{
+  "examples": [],
+  "props": {
+    "component": {
+      "description": "The slug of the component to view."
+    },
+    "components": {
+      "description": "An array of loaded component objects.",
+      "type": "array"
+    }
+  },
+  "title": "WPCL Admin Page"
+}

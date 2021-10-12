@@ -49,6 +49,45 @@ class Component {
 	private string $title = '';
 
 	/**
+	 * A factory method for getting an array of component objects dynamically.
+	 *
+	 * @return array An array of Component objects.
+	 */
+	public static function get_component_list(): array {
+		$components = [];
+
+		// Try to find the directory that contains components.
+		$components_dir = '';
+		foreach ( self::try_dirs() as $check ) {
+			$check_dir = sprintf( '%s/components', $check );
+			if ( is_dir( $check_dir ) ) {
+				$components_dir = $check_dir;
+				break;
+			}
+		}
+
+		// If we don't have a valid components directory, bail out.
+		if ( empty( $components_dir ) ) {
+			return [];
+		}
+
+		// Scan the components directory to build a list of components.
+		$slugs = array_filter(
+			scandir( $components_dir ),
+			function ( $dir ) use ( $components_dir ) {
+				return '.' !== $dir
+					&& '..' !== $dir
+					&& is_dir( sprintf( '%s/%s', $components_dir, $dir ) );
+			}
+		);
+		foreach ( $slugs as $slug ) {
+			$components[] = new Component( $slug );
+		}
+
+		return $components;
+	}
+
+	/**
 	 * Constructor. Accepts the name of the component.
 	 *
 	 * @param string $name  The name of the component.
@@ -137,6 +176,20 @@ class Component {
 	}
 
 	/**
+	 * Returns an array of directories to look in for the components directory.
+	 * Uses the same logic as the `locate_template` function.
+	 *
+	 * @return array An array of directory paths to look in for the components directory.
+	 */
+	private static function try_dirs(): array {
+		return [
+			get_stylesheet_directory(),
+			get_template_directory(),
+			ABSPATH . WPINC . '/theme-compat/',
+		];
+	}
+
+	/**
 	 * Loads configuration from a component.json file in the path.
 	 */
 	private function load_config(): void {
@@ -188,12 +241,7 @@ class Component {
 	 * property.
 	 */
 	private function locate_component(): void {
-		$try = [
-			STYLESHEETPATH, // phpcs:ignore WordPress.WP.DiscouragedConstants.STYLESHEETPATHUsageFound
-			TEMPLATEPATH, // phpcs:ignore WordPress.WP.DiscouragedConstants.TEMPLATEPATHUsageFound
-			ABSPATH . WPINC . '/theme-compat/',
-		];
-		foreach ( $try as $base ) {
+		foreach ( self::try_dirs() as $base ) {
 			if ( file_exists( sprintf( '%s/components/%s/template.php', $base, $this->name ) ) ) {
 				$this->path = sprintf( '%s/components/%s', $base, $this->name );
 			}
