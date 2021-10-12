@@ -1,5 +1,36 @@
 {
-  "examples": [],
+  "examples": [
+    {
+      "_title": "An example heading level 1.",
+      "level": 1,
+      "text": "This is a heading 1"
+    },
+    {
+      "_title": "An example heading level 2.",
+      "level": 2,
+      "text": "This is a heading 2"
+    },
+    {
+      "_title": "An example heading level 3.",
+      "level": 3,
+      "text": "This is a heading 3"
+    },
+    {
+      "_title": "An example heading level 4.",
+      "level": 4,
+      "text": "This is a heading 4"
+    },
+    {
+      "_title": "An example heading level 5.",
+      "level": 5,
+      "text": "This is a heading 5"
+    },
+    {
+      "_title": "An example heading level 6.",
+      "level": 6,
+      "text": "This is a heading 6"
+    }
+  ],
   "props": {
     "level": {
       "allowed_values": [1, 2, 3, 4, 5, 6],
