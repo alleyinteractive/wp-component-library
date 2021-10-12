@@ -12,13 +12,11 @@ $html_tag  = $is_button ? 'button' : 'a';
 ?>
 
 <<?php echo esc_html( $html_tag ); ?>
-	class="<?php wpcl_classnames( 'button', sprintf( 'button--%s', $args['variant'] ), $args['class'] ); ?>"
+	<?php wpcl_classnames( 'button', sprintf( 'button--%s', $args['variant'] ), $args['class'] ); ?>
 	<?php if ( ! $is_button ) : ?>
 		href="<?php echo esc_url( $args['href'] ); ?>"
 	<?php endif; ?>
-	<?php if ( ! empty( $args['id'] ) ) : ?>
-		id="<?php echo esc_attr( $args['id'] ); ?>"
-	<?php endif; ?>
+	<?php wpcl_id( $args['id'] ); ?>
 	<?php if ( $is_button ) : ?>
 		type="<?php echo esc_attr( $args['type'] ); ?>"
 	<?php endif; ?>

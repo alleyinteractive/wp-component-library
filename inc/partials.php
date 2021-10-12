@@ -9,8 +9,10 @@ use WP_Component_Library\Classnames;
 use WP_Component_Library\Component;
 
 /**
- * A PHP implementation of the `classnames` npm package. Makes it easy to both
- * combine lists of classes and conditionally include classes.
+ * Conditionally output classes as part of a class attribute on an HTML element.
+ * Handles negotiating the class list and wrapping it in the class="" attribute
+ * along with proper escaping. Does not output anything if there are no classes
+ * to print.
  *
  * Pass a variable-length number of arguments to this function to output a
  * class list. Strings and arrays of strings are added to the class list, and
@@ -22,7 +24,22 @@ use WP_Component_Library\Component;
  */
 function wpcl_classnames( ...$args ): void {
 	$classnames = new Classnames( ...$args );
-	echo esc_attr( $classnames->get_classlist() );
+	$classlist  = $classnames->get_classlist();
+	if ( ! empty( $classlist ) ) {
+		echo 'class="' . esc_attr( $classlist ) . '"';
+	}
+}
+
+/**
+ * Conditionally outputs an `id` attribute for an HTML element, given an ID as
+ * a string. If the ID is empty, does not output the attribute.
+ *
+ * @param string $id The ID to print, or an empty string to not output an ID.
+ */
+function wpcl_id( string $id ): void {
+	if ( ! empty( $id ) ) {
+		echo 'id="' . esc_attr( $id ) . '"';
+	}
 }
 
 /**

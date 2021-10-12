@@ -1,0 +1,14 @@
+{
+  "examples": [],
+  "props": {
+    "level": {
+      "allowed_values": [1, 2, 3, 4, 5, 6],
+      "description": "The heading level, from 1-6.",
+      "type": "enum"
+    },
+    "text": {
+      "description": "Inner text for the heading."
+    }
+  },
+  "title": "WPCL Heading"
+}
