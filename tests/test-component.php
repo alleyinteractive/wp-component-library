@@ -76,7 +76,7 @@ class Test_Component extends WP_UnitTestCase {
 		$props     = $component->get_props();
 		$this->assertEquals( 'button', $component->get_name() );
 		$this->assertEquals( 'Button', $component->get_title() );
-		$this->assertEquals( 'A link that is styled to look like a button.', $examples[0]->get_title() );
+		$this->assertEquals( 'A link that is styled to look like a button', $examples[0]->get_title() );
 		$this->assertEquals(
 			[
 				'href'    => 'https://www.example.org/newsletter',
@@ -85,7 +85,7 @@ class Test_Component extends WP_UnitTestCase {
 			],
 			$examples[0]->get_props()
 		);
-		$this->assertEquals( 'A button with a custom class that will be targeted by JavaScript.', $examples[1]->get_title() );
+		$this->assertEquals( 'A button with a custom class that will be targeted by JavaScript', $examples[1]->get_title() );
 		$this->assertEquals(
 			[
 				'class'   => 'newsletter-signup',
