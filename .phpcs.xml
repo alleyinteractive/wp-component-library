@@ -34,4 +34,8 @@
   <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
     <exclude-pattern>components/</exclude-pattern>
   </rule>
+
+  <rule ref="WordPress.Files.FileName.InvalidClassFileName">
+    <exclude-pattern>inc/classes/</exclude-pattern>
+  </rule>
 </ruleset>

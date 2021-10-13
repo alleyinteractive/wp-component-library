@@ -1,14 +1,22 @@
 {
-  "name": "alleyinteractive/wp-component-library",
-  "description": "WP Component Library",
-  "type": "project",
-  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Alley Interactive",
       "email": "noreply@alleyinteractive.com"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "WP_Component_Library\\": "inc/classes"
+    }
+  },
+  "description": "WP Component Library",
+  "license": "GPL-2.0-or-later",
+  "name": "alleyinteractive/wp-component-library",
+  "require": {
+    "cjstroud/classnames-php": "^1.0",
+    "league/commonmark": "^2.0"
+  },
   "require-dev": {
     "alleyinteractive/alley-coding-standards": "^0.3.0",
     "phpunit/phpunit": "7.5.*",
@@ -19,8 +27,5 @@
     "phpcs": "phpcs . --runtime-set text_domain wp-component-library --runtime-set prefixes wpcl,wp_component_library",
     "phpunit": "phpunit"
   },
-  "require": {
-    "cjstroud/classnames-php": "^1.0",
-    "league/commonmark": "^2.0"
-  }
+  "type": "project"
 }
