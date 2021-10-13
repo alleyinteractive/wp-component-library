@@ -28,6 +28,13 @@ class Component {
 	private string $name = '';
 
 	/**
+	 * Stores the contents of the component's README file.
+	 *
+	 * @var string
+	 */
+	private string $readme = '';
+
+	/**
 	 * Stores the path to the component.
 	 *
 	 * @var string
@@ -81,7 +88,7 @@ class Component {
 			}
 		);
 		foreach ( $slugs as $slug ) {
-			$components[] = new Component( $slug );
+			$components[] = new Component( $slug, [], 'preview' );
 		}
 
 		return $components;
@@ -90,13 +97,14 @@ class Component {
 	/**
 	 * Constructor. Accepts the name of the component.
 	 *
-	 * @param string $name  The name of the component.
-	 * @param array  $props Values for props for this component.
+	 * @param string $name    The name of the component.
+	 * @param array  $props   Values for props for this component.
+	 * @param string $context Optional. Controls which properties are populated. Possible values are 'usage' and 'preview'. Defaults to 'usage'.
 	 */
-	public function __construct( string $name, array $props = [] ) {
+	public function __construct( string $name, array $props = [], string $context = 'usage' ) {
 		$this->name = $name;
 		$this->locate_component();
-		$this->load_config();
+		$this->load_config( 'preview' === $context );
 		$this->load_props( $props );
 	}
 
@@ -116,6 +124,15 @@ class Component {
 	 */
 	public function get_name(): string {
 		return $this->name;
+	}
+
+	/**
+	 * Gets the text of the README for this component.
+	 *
+	 * @return string The contents of README.md.
+	 */
+	public function get_readme(): string {
+		return $this->readme;
 	}
 
 	/**
@@ -191,8 +208,10 @@ class Component {
 
 	/**
 	 * Loads configuration from a component.json file in the path.
+	 *
+	 * @param bool $load_metadata Whether to load metadata (examples and readme) or not.
 	 */
-	private function load_config(): void {
+	private function load_config( bool $load_metadata ): void {
 		// Ensure we have a path and the component file exists.
 		$filepath = sprintf( '%s/component.json', $this->path );
 		if ( empty( $this->path ) || ! file_exists( $filepath ) ) {
@@ -205,13 +224,6 @@ class Component {
 		// Set the title.
 		$this->title = $config['title'] ?? '';
 
-		// Loop over example data and add it to this component's definition.
-		foreach ( $config['examples'] ?? [] as $example ) {
-			$example_title = $example['_title'] ?? '';
-			unset( $example['_title'] );
-			$this->examples[] = new Example( $example_title, $example );
-		}
-
 		// Loop over props and add them to this component's definition.
 		foreach ( $config['props'] ?? [] as $prop_name => $prop_definition ) {
 			$this->props[ $prop_name ] = new Prop( $prop_name, $prop_definition );
@@ -220,6 +232,27 @@ class Component {
 		// Add props for class and id, which are supported on all components.
 		$this->props['class'] = new Prop( 'class', [ 'description' => __( 'Additional classes to apply to the element.', 'wp-component-library' ) ] );
 		$this->props['id']    = new Prop( 'id', [ 'description' => __( 'The HTML ID to apply to the element.', 'wp-component-library' ) ] );
+
+		// If we aren't loading metadata, then stop here.
+		if ( ! $load_metadata ) {
+			return;
+		}
+
+		// Loop over example data and add it to this component's definition.
+		foreach ( $config['examples'] ?? [] as $example ) {
+			$example_title = $example['_title'] ?? '';
+			unset( $example['_title'] );
+			$this->examples[] = new Example( $example_title, $example );
+		}
+
+		// See if there is a README.
+		$readmepath = sprintf( '%s/README.md', $this->path );
+		if ( ! file_exists( $readmepath ) ) {
+			return;
+		}
+
+		// Get the contents of the README and store them.
+		$this->readme = file_get_contents( $readmepath ); // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
 	}
 
 	/**

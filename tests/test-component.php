@@ -71,7 +71,7 @@ class Test_Component extends WP_UnitTestCase {
 	 * configuration data from the JSON file correctly.
 	 */
 	public function test_load() {
-		$component = new Component( 'button' );
+		$component = new Component( 'button', [], 'preview' );
 		$examples  = $component->get_examples();
 		$props     = $component->get_props();
 		$this->assertEquals( 'button', $component->get_name() );
@@ -131,7 +131,7 @@ class Test_Component extends WP_UnitTestCase {
 	 */
 	public function test_render( string $component, int $index, string $expected ) {
 		// Render the component's output.
-		$component = new Component( $component );
+		$component = new Component( $component, [], 'preview' );
 		$component->load_example_data( $index );
 		ob_start();
 		$component->render();

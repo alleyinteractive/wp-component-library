@@ -9,6 +9,6 @@
 ?>
 
 <h<?php echo absint( $args['level'] ); ?>
-	<?php wpcl_classnames( $args['class'] ); ?>
+	<?php wpcl_class( $args['class'] ); ?>
 	<?php wpcl_id( $args['id'] ); ?>
 ><?php echo wp_kses_post( $args['text'] ); ?></h<?php echo absint( $args['level'] ); ?>>

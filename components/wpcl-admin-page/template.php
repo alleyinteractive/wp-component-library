@@ -10,17 +10,41 @@ use WP_Component_Library\Component;
 
 // Get the featured component, if there is one.
 $featured_component = ! empty( $args['component'] )
-	? new Component( $args['component'] )
+	? new Component( $args['component'], [], 'preview' )
 	: null;
 
 // Fork for listing all components vs. displaying just one.
 if ( ! empty( $featured_component ) ) {
-	wpcl_component( 'wpcl-button', [ 'href' => admin_url( 'admin.php?page=wpcl-components' ), 'text' => __( 'Back', 'wp-component-library' ) ] );
-	echo '<h2>TODO: README</h2>';
-	echo '<h2>TODO: EXAMPLES</h2>';
-	echo '<h2>TODO: PROPS</h2>';
+	?>
+	<div style="margin-top: 1em">
+		<?php 
+		wpcl_component(
+			'wpcl-button',
+			[
+				'href' => admin_url( 'admin.php?page=wpcl-components' ),
+				'text' => __(
+					'Back',
+					'wp-component-library' 
+				),
+			] 
+		); 
+		?>
+	</div>
+	<?php wpcl_markdown( $featured_component->get_readme() ); ?>
+	<h2>TODO: EXAMPLES</h2>
+	<h2>TODO: PROPS</h2>
+	<?php
 } else {
-	wpcl_component( 'wpcl-heading', [ 'level' => 1, 'text' => __( 'Components', 'wp-component-library' ) ] );
+	wpcl_component(
+		'wpcl-heading',
+		[
+			'level' => 1,
+			'text'  => __(
+				'Components',
+				'wp-component-library' 
+			),
+		] 
+	);
 	wpcl_component(
 		'wpcl-list',
 		[
@@ -33,7 +57,7 @@ if ( ! empty( $featured_component ) ) {
 					);
 				},
 				$args['components']
-			)
+			),
 		]
 	);
 }

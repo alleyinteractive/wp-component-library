@@ -12,7 +12,7 @@ $html_tag  = $is_button ? 'button' : 'a';
 ?>
 
 <<?php echo esc_html( $html_tag ); ?>
-	<?php wpcl_classnames( 'button', sprintf( 'button--%s', $args['variant'] ), $args['class'] ); ?>
+	<?php wpcl_class( 'button', sprintf( 'button--%s', $args['variant'] ), $args['class'] ); ?>
 	<?php if ( ! $is_button ) : ?>
 		href="<?php echo esc_url( $args['href'] ); ?>"
 	<?php endif; ?>

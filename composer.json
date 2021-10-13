@@ -20,6 +20,7 @@
     "phpunit": "phpunit"
   },
   "require": {
-    "cjstroud/classnames-php": "^1.0"
+    "cjstroud/classnames-php": "^1.0",
+    "league/commonmark": "^2.0"
   }
 }

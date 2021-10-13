@@ -9,7 +9,7 @@
 ?>
 
 <<?php echo 'ordered' === $args['type'] ? 'ol' : 'ul'; ?>
-	<?php wpcl_classnames( $args['class'] ); ?>
+	<?php wpcl_class( $args['class'] ); ?>
 	<?php wpcl_id( $args['id'] ); ?>
 >
 	<?php foreach ( $args['items'] as $item ) : ?>
