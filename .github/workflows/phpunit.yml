@@ -35,22 +35,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get Composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Set up Composer caching
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-composer-dependencies
-        with:
-          path: |
-            ${{ steps.composer-cache.outputs.dir }}
-            /tmp/test-cache
-            /tmp/wordpress
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -61,6 +45,13 @@ jobs:
 
       - name: Validate Composer
         run: composer validate --strict
+
+      - name: Install composer dependencies
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer install
 
       - name: Install WordPress and Copy Project
         shell: bash
@@ -73,5 +64,4 @@ jobs:
         shell: bash
         run: |
           cd ${WP_CORE_DIR}wp-content/plugins/wp-component-library
-          composer install
           composer phpunit
