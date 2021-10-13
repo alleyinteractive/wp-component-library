@@ -1,7 +1,9 @@
 # WP Component Library
 
 A plugin to list and preview components from the active theme's component
-library in the WordPress admin.
+library in the WordPress admin. Also provides helper functions for loading
+components in your theme so you can build with components atomically, similar
+to how you can work with components in React.
 
 ## Usage
 
@@ -12,8 +14,8 @@ the `manage_options` capability, but this is filterable.
 Upon visiting the Component Library page, any components configured in the
 active theme's `components` folder within the root of the theme according to
 the standards laid out below will be displayed with information from the
-README and one or more live previews based on values in the `examples.json`
-file in the component folder.
+README and one or more live previews based on values in the `examples` key in
+the `component.json` file in the component folder.
 
 ## Directory Structure
 
@@ -34,8 +36,8 @@ establish the following directory structure:
             component. See the Loading Styles section below for more info.
           * template.php - The file that renders the component.
 
-For an example, look in the
-[tests/components/button directory](tests/components/button).
+For examples, look in the
+[components directory](components).
 
 ### `component.json`
 
@@ -45,7 +47,7 @@ A JSON file with three top-level keys: `examples`, `props`, and `title`.
 
 An array of objects, each of which should have a `title` property that defines
 the title for the example in the admin, and a `props` property that contains
-key/value pairs for prop values.
+an object with key/value pairs for prop values.
 
 #### `props`
 
@@ -108,3 +110,11 @@ smarter than the WordPress default.
 
 An example `template.php` can be found in
 [tests/components/button/template.php](tests/components/button/template.php).
+
+## Templating Functions
+
+This plugin contains a number of helpful functions for use in writing
+WordPress templates using components that you define according to the specs
+above.
+
+### TODO

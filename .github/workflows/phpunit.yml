@@ -62,13 +62,6 @@ jobs:
       - name: Validate Composer
         run: composer validate --strict
 
-      - name: Install dependencies
-        uses: nick-invision/retry@v1
-        with:
-          timeout_minutes: 5
-          max_attempts: 5
-          command: composer install
-
       - name: Install WordPress and Copy Project
         shell: bash
         run: |
@@ -80,5 +73,5 @@ jobs:
         shell: bash
         run: |
           cd ${WP_CORE_DIR}wp-content/plugins/wp-component-library
-          composer dump-autoload
+          composer install
           composer phpunit
