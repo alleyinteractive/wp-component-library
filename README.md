@@ -117,4 +117,52 @@ This plugin contains a number of helpful functions for use in writing
 WordPress templates using components that you define according to the specs
 above.
 
-### TODO
+### wpcl_component
+
+The primary function used for working with components. Accepts two arguments:
+a component name and an optional array of props. Loads and outputs the
+component's template file after getting values for all props, either from what
+was provided in the props array, or using default values for each prop.
+
+#### Example Usage
+
+```php
+wpcl_component( 'button', [ 'href' => 'https://www.example.org', 'text' => 'Visit example.org' ] );
+```
+
+### wpcl_class
+
+Accepts arguments in the same fashion as the
+[classnames npm package](https://www.npmjs.com/package/classnames). If there is
+at least one class name in the list, prints a `class` attribute with the list
+of classnames, properly escaped. If there are no classes, does not print
+anything. Useful for applying multiple classes, conditional classes, derived
+classes, and merging a set of classes with class names that may have been passed
+to a component via props.
+
+#### Example Usage
+
+```php
+wpcl_class( 'class-1', [ 'class-2', 'class-3' ], [ 'class-4' => $maybe_include ], $args['class'] );
+```
+
+### wpcl_id
+
+Similar to `wpcl_class`, accepts an ID parameter and conditionally outputs an
+`id` attribute. Useful when adding support for the `id` prop to a component.
+
+#### Example Usage
+
+```php
+wpcl_id( $args['id'] );
+```
+
+### wpcl_markdown
+
+Safely converts a markdown string to HTML and outputs it.
+
+#### Example Usage
+
+```php
+wpcl_markdown( '## This will become an h2' );
+```
