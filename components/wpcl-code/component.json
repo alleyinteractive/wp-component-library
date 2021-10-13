@@ -1,0 +1,16 @@
+{
+  "examples": [
+    {
+      "props": {
+        "code": "text-color: #f00;"
+      },
+      "title": "A sample code block."
+    }
+  ],
+  "props": {
+    "code": {
+      "description": "The code block to output."
+    }
+  },
+  "title": "WPCL Code"
+}

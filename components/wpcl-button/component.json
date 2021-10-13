@@ -1,17 +1,21 @@
 {
   "examples": [
     {
-      "_title": "A link that is styled to look like a button.",
-      "href": "https://www.example.org/newsletter",
-      "text": "Sign Up for Our Newsletter",
-      "variant": "primary"
+      "props": {
+        "href": "https://www.example.org/newsletter",
+        "text": "Sign Up for Our Newsletter",
+        "variant": "primary"
+      },
+      "title": "A link that is styled to look like a button."
     },
     {
-      "_title": "A button with a custom class that will be targeted by JavaScript.",
-      "class": "newsletter-signup",
-      "id": "newsletter-signup-footer",
-      "text": "Sign Up for Our Newsletter",
-      "variant": "secondary"
+      "props": {
+        "class": "newsletter-signup",
+        "id": "newsletter-signup-footer",
+        "text": "Sign Up for Our Newsletter",
+        "variant": "secondary"
+      },
+      "title": "A button with a custom class that will be targeted by JavaScript."
     }
   ],
   "props": {

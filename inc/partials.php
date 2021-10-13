@@ -9,6 +9,33 @@ use League\CommonMark\GithubFlavoredMarkdownConverter;
 use WP_Component_Library\Component;
 
 /**
+ * Builds a URL to the WP Component Library admin page given configuration
+ * parameters.
+ *
+ * @param string $component  The component slug, if any. If an empty string is passed, prints the link to the index page.
+ * @param bool   $dogfooding Whether we are dogfooding (previewing internal components) or not.
+ *
+ * @return string The admin URL.
+ */
+function wpcl_admin_url( string $component, bool $dogfooding ): string {
+	$query_args = [
+		'page' => 'wpcl-components',
+	];
+
+	// Set component flag, if provided.
+	if ( ! empty( $component ) ) {
+		$query_args['component'] = $component;
+	}
+
+	// Set dogfooding flag, if provided.
+	if ( $dogfooding ) {
+		$query_args['dogfooding'] = 1;
+	}
+
+	return admin_url( sprintf( 'admin.php?%s', http_build_query( $query_args ) ) );
+}
+
+/**
  * Conditionally output classes as part of a class attribute on an HTML element.
  * Handles negotiating the class list and wrapping it in the class="" attribute
  * along with proper escaping. Does not output anything if there are no classes

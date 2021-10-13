@@ -89,9 +89,6 @@ class Prop {
 		if ( ! isset( $properties['default'] ) ) {
 			$this->set_default();
 		}
-
-		// Validate the configuration.
-		$this->validate_config();
 	}
 
 	/**
@@ -165,7 +162,8 @@ class Prop {
 	 * @return mixed The value.
 	 */
 	public function set_value( $value ) {
-		if ( ( 'array' === $this->type && is_array( $value ) )
+		if ( null === $value
+			|| ( 'array' === $this->type && is_array( $value ) )
 			|| ( 'bool' === $this->type && is_bool( $value ) )
 			|| ( 'enum' === $this->type && in_array( $value, $this->allowed_values, true ) )
 			|| ( 'number' === $this->type && is_numeric( $value ) )

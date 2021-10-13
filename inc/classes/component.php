@@ -88,7 +88,7 @@ class Component {
 			}
 		);
 		foreach ( $slugs as $slug ) {
-			$components[] = new Component( $slug, [], 'preview' );
+			$components[] = new self( $slug );
 		}
 
 		return $components;
@@ -159,6 +159,12 @@ class Component {
 	 * @param int $index The index of the example data to load.
 	 */
 	public function load_example_data( int $index ) {
+		// Reset prop values.
+		foreach ( $this->props as $prop ) {
+			$prop->set_value( null );
+		}
+
+		// Load props from examples.
 		if ( isset( $this->examples[ $index ] ) ) {
 			$this->load_props( $this->examples[ $index ]->get_props() );
 		}
@@ -199,6 +205,12 @@ class Component {
 	 * @return array An array of directory paths to look in for the components directory.
 	 */
 	private static function try_dirs(): array {
+		// If we're dogfooding, look in our own component dir.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['dogfooding'] ) && true === (bool) $_GET['dogfooding'] ) {
+			return [ dirname( __DIR__, 2 ) ];
+		}
+
 		return [
 			get_stylesheet_directory(),
 			get_template_directory(),
@@ -240,9 +252,9 @@ class Component {
 
 		// Loop over example data and add it to this component's definition.
 		foreach ( $config['examples'] ?? [] as $example ) {
-			$example_title = $example['_title'] ?? '';
-			unset( $example['_title'] );
-			$this->examples[] = new Example( $example_title, $example );
+			$example_title    = $example['title'] ?? '';
+			$example_props    = $example['props'] ?? [];
+			$this->examples[] = new Example( $example_title, $example_props );
 		}
 
 		// See if there is a README.

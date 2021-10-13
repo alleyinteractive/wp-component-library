@@ -43,9 +43,9 @@ A JSON file with three top-level keys: `examples`, `props`, and `title`.
 
 #### `examples`
 
-An array of objects, each of which should have a `_title` property that defines
-the title for the example in the admin, and otherwise contains key/value pairs
-for props.
+An array of objects, each of which should have a `title` property that defines
+the title for the example in the admin, and a `props` property that contains
+key/value pairs for prop values.
 
 #### `props`
 

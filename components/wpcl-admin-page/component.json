@@ -1,5 +1,9 @@
 {
-  "examples": [],
+  "examples": [
+    {
+      "title": "None."
+    }
+  ],
   "props": {
     "component": {
       "description": "The slug of the component to view."
@@ -7,6 +11,10 @@
     "components": {
       "description": "An array of loaded component objects.",
       "type": "array"
+    },
+    "dogfooding": {
+      "description": "Whether we are dogfooding (previewing internal components) or not.",
+      "type": "bool"
     }
   },
   "title": "WPCL Admin Page"

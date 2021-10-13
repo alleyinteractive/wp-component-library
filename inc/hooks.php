@@ -32,9 +32,11 @@ function action_admin_menu(): void {
 			wpcl_component(
 				'wpcl-admin-page',
 				[
-					// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					/* phpcs:disable WordPress.Security.NonceVerification.Recommended */
 					'component'  => isset( $_GET['component'] ) ? sanitize_text_field( wp_unslash( $_GET['component'] ) ) : '',
 					'components' => Component::get_component_list(),
+					'dogfooding' => isset( $_GET['dogfooding'] ) && true === (bool) $_GET['dogfooding'],
+					/* phpcs:enable */
 				]
 			);
 		},

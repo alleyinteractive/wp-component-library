@@ -1,20 +1,24 @@
 {
   "examples": [
     {
-      "_title": "An example ordered list.",
-      "items": [
-        "The first item.",
-        "The second item."
-      ],
-      "type": "ordered"
+      "props": {
+        "items": [
+          "The first item.",
+          "The second item."
+        ],
+        "type": "ordered"
+      },
+      "title": "An example ordered list."
     },
     {
-      "_title": "An example unordered list.",
-      "items": [
-        "The first item.",
-        "The second item."
-      ],
-      "type": "unordered"
+      "props": {
+        "items": [
+          "The first item.",
+          "The second item."
+        ],
+        "type": "unordered"
+      },
+      "title": "An example unordered list."
     }
   ],
   "props": {
