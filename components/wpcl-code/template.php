@@ -23,5 +23,5 @@ try {
 <pre
 	<?php wpcl_class( $args['class'] ); ?>
 	<?php wpcl_id( $args['id'] ); ?>
-	style="max-width: 75%"
+	style="width: 50%"
 ><code><?php echo wp_kses_post( $code ); ?></code></pre>

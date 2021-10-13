@@ -100,7 +100,7 @@ function wpcl_markdown( string $markdown ): void {
 function wpcl_phpify( $value, int $level = 0 ): string {
 	$ret = '';
 	if ( is_array( $value ) ) {
-		$ret      .= wpcl_tab( '[', $level );
+		$ret      .= '[';
 		$multiline = false;
 		foreach ( $value as $key => $item ) {
 			if ( ! is_int( $key ) ) {

@@ -71,7 +71,7 @@ if ( ! empty( $featured_component ) ) {
 
 		// Construct the sample code and render it.
 		$code = sprintf(
-			"wpcl_component(\n\t'%s',\n%s\n);",
+			"wpcl_component(\n\t'%s',\n\t%s\n);",
 			$featured_component->get_name(),
 			wpcl_phpify( $examples[ $i ]->get_props(), 1 )
 		);
@@ -98,6 +98,30 @@ if ( ! empty( $featured_component ) ) {
 				'Props',
 				'wp-component-library'
 			),
+		]
+	);
+	$props_header = [
+		__( 'Prop', 'wp-component-library' ),
+		__( 'Default', 'wp-component-library' ),
+		__( 'Required', 'wp-component-library' ),
+		__( 'Type', 'wp-component-library' ),
+		__( 'Description', 'wp-component-library' ),
+	];
+	$props_values = [];
+	foreach ( $props as $prop ) {
+		$props_values[] = [
+			$prop->get_name(),
+			$prop->get_required() ? '' : wpcl_phpify( $prop->get_default() ),
+			$prop->get_required() ? __( 'Yes', 'wp-component-library' ) : __( 'No', 'wp-component-library' ),
+			$prop->get_type(),
+			$prop->get_description(),
+		];
+	}
+	wpcl_component(
+		'wpcl-table',
+		[
+			'header' => $props_header,
+			'values' => $props_values,
 		]
 	);
 } else {
