@@ -18,5 +18,8 @@
     "phpcbf": "phpcbf .",
     "phpcs": "phpcs . --runtime-set text_domain wp-component-library --runtime-set prefixes wpcl,wp_component_library",
     "phpunit": "phpunit"
+  },
+  "require": {
+    "cjstroud/classnames-php": "^1.0"
   }
 }

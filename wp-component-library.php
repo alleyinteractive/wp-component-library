@@ -15,8 +15,10 @@
  * Author: Alley
  */
 
+// Composer autoloader.
+require_once __DIR__ . '/vendor/autoload.php';
+
 // Classes.
-require_once __DIR__ . '/inc/class-classnames.php';
 require_once __DIR__ . '/inc/class-component.php';
 require_once __DIR__ . '/inc/class-example.php';
 require_once __DIR__ . '/inc/class-prop.php';

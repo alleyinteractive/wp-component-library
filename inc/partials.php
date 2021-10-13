@@ -5,7 +5,6 @@
  * @package WP_Component_Library
  */
 
-use WP_Component_Library\Classnames;
 use WP_Component_Library\Component;
 
 /**
@@ -23,10 +22,9 @@ use WP_Component_Library\Component;
  * @param mixed ...$args A variable number of arguments that can be strings, arrays, or associative arrays.
  */
 function wpcl_classnames( ...$args ): void {
-	$classnames = new Classnames( ...$args );
-	$classlist  = $classnames->get_classlist();
-	if ( ! empty( $classlist ) ) {
-		echo 'class="' . esc_attr( $classlist ) . '"';
+	$classnames = classNames( ...$args );
+	if ( ! empty( $classnames ) ) {
+		echo 'class="' . esc_attr( $classnames ) . '"';
 	}
 }
 
