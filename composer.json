@@ -15,7 +15,8 @@
   "name": "alleyinteractive/wp-component-library",
   "require": {
     "cjstroud/classnames-php": "^1.0",
-    "league/commonmark": "^2.0"
+    "league/commonmark": "^2.0",
+    "scrivo/highlight.php": "^v9.18"
   },
   "require-dev": {
     "alleyinteractive/alley-coding-standards": "^0.3.0",

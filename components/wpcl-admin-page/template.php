@@ -33,23 +33,19 @@ if ( ! empty( $featured_component ) ) {
 			);
 		}
 	}
-	?>
-	<div style="margin-top: 1em">
-		<?php
-		wpcl_component(
-			'wpcl-button',
-			[
-				'href' => wpcl_admin_url( '', $args['dogfooding'] ),
-				'text' => __(
-					'Back',
-					'wp-component-library'
-				),
-			]
-		);
-		?>
-	</div>
-	<?php wpcl_markdown( $featured_component->get_readme() ); ?>
-	<?php
+	echo '<div style="margin-top: 1em">';
+	wpcl_component(
+		'wpcl-button',
+		[
+			'href' => wpcl_admin_url( '', $args['dogfooding'] ),
+			'text' => __(
+				'Back',
+				'wp-component-library'
+			),
+		]
+	);
+	echo '</div>';
+	wpcl_markdown( $featured_component->get_readme() );
 	wpcl_component(
 		'wpcl-heading',
 		[
@@ -60,10 +56,8 @@ if ( ! empty( $featured_component ) ) {
 			),
 		]
 	);
-	?>
-	<?php for ( $i = 0; $i < $total_examples; $i ++ ) : ?>
-		<?php $featured_component->load_example_data( $i ); ?>
-		<?php
+	for ( $i = 0; $i < $total_examples; $i ++ ) {
+		$featured_component->load_example_data( $i );
 		wpcl_component(
 			'wpcl-heading',
 			[
@@ -71,12 +65,41 @@ if ( ! empty( $featured_component ) ) {
 				'text'  => $examples[ $i ]->get_title(),
 			]
 		);
-		?>
-		<?php wpcl_component( 'wpcl-code', [ 'code' => 'text-color: #00f;' ] ); ?>
-		<?php $featured_component->render(); ?>
-	<?php endfor; ?>
-	<h2>TODO: PROPS</h2>
-	<?php
+
+		// Render the component preview.
+		$featured_component->render();
+
+		// Construct the sample code and render it.
+		$code = sprintf(
+			"wpcl_component(\n\t'%s',\n%s\n);",
+			$featured_component->get_name(),
+			wpcl_phpify( $examples[ $i ]->get_props(), 1 )
+		);
+		wpcl_component(
+			'wpcl-heading',
+			[
+				'level' => 4,
+				'text'  => __( 'Code', 'wp-component-library' ),
+			]
+		);
+		wpcl_component(
+			'wpcl-code',
+			[
+				'code'     => $code,
+				'language' => 'php',
+			]
+		);
+	}
+	wpcl_component(
+		'wpcl-heading',
+		[
+			'level' => 2,
+			'text'  => __(
+				'Props',
+				'wp-component-library'
+			),
+		]
+	);
 } else {
 	wpcl_component(
 		'wpcl-heading',

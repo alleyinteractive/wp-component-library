@@ -8,10 +8,41 @@
 namespace WP_Component_Library;
 
 // Register action hooks.
+add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\action_admin_enqueue_scripts' );
 add_action( 'admin_menu', __NAMESPACE__ . '\\action_admin_menu' );
 
 // Register filter hooks.
 add_filter( 'wpcl_component_path', __NAMESPACE__ . '\\filter_wpcl_component_path', 10, 2 );
+
+/**
+ * An action hook callback for the admin_enqueue_scripts hook.
+ */
+function action_admin_enqueue_scripts(): void {
+	// Extract the version of highlight.php from composer.lock to auto-cache bust.
+	$version  = '';
+	$lockfile = sprintf( '%s/composer.lock', dirname( __DIR__ ) );
+	if ( file_exists( $lockfile ) ) {
+		$json = file_get_contents( $lockfile ); // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
+		if ( ! empty( $json ) ) {
+			$lock = json_decode( $json, true );
+			if ( ! empty( $lock['packages'] ) && is_array( $lock['packages'] ) ) {
+				foreach ( $lock['packages'] as $package ) {
+					if ( 'scrivo/highlight.php' === $package['name'] ) {
+						$version = $package['version'];
+					}
+				}
+			}
+		}
+	}
+
+	// Enqueue the style for highlight.php.
+	wp_enqueue_style(
+		'wpcl_highlightjs',
+		plugin_dir_url( __DIR__ ) . 'vendor/scrivo/highlight.php/styles/darcula.css',
+		[],
+		$version
+	);
+}
 
 /**
  * An action hook callback for the admin_menu hook.

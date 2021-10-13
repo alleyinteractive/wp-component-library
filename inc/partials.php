@@ -87,3 +87,54 @@ function wpcl_markdown( string $markdown ): void {
 	$converter = new GithubFlavoredMarkdownConverter( [ 'allow_unsafe_links' => false ] );
 	echo wp_kses_post( $converter->convertToHtml( $markdown ) );
 }
+
+/**
+ * A function to recursively turn values into a string representing the PHP
+ * code used to generate the value. Used for generating previews of PHP code.
+ *
+ * @param mixed $value The value to convert.
+ * @param int   $level The indentation level.
+ *
+ * @return string A string representation of the PHP code.
+ */
+function wpcl_phpify( $value, int $level = 0 ): string {
+	$ret = '';
+	if ( is_array( $value ) ) {
+		$ret      .= wpcl_tab( '[', $level );
+		$multiline = false;
+		foreach ( $value as $key => $item ) {
+			if ( ! is_int( $key ) ) {
+				$multiline = true;
+				$ret      .= "\n" . wpcl_tab( '\'' . $key . '\' => ', $level + 1 );
+			}
+			$ret .= wpcl_phpify( $item, $level + 1 ) . ',';
+		}
+		if ( $multiline ) {
+			$ret .= "\n" . wpcl_tab( ']', $level );
+		} else {
+			$ret .= ' ]';
+		}
+	} elseif ( is_string( $value ) ) {
+		$ret .= '\'' . $value . '\'';
+	} elseif ( true === $value ) {
+		$ret .= 'true';
+	} elseif ( false === $value ) {
+		$ret .= 'false';
+	} else {
+		$ret .= $value;
+	}
+	return $ret;
+}
+
+/**
+ * Given a string and a number of tabs to apply, indents the string by the
+ * number of specified tabs.
+ *
+ * @param string $string The string to indent.
+ * @param int    $times  The number of tabs to apply.
+ *
+ * @return string The tabbed string.
+ */
+function wpcl_tab( string $string, int $times ): string {
+	return str_repeat( "\t", $times ) . $string;
+}

@@ -2,14 +2,18 @@
   "examples": [
     {
       "props": {
-        "code": "text-color: #f00;"
+        "code": "echo \"test\";",
+        "language": "php"
       },
-      "title": "A sample code block."
+      "title": "A sample PHP code block"
     }
   ],
   "props": {
     "code": {
       "description": "The code block to output."
+    },
+    "language": {
+      "description": "The language to use when syntax highlighting."
     }
   },
   "title": "WPCL Code"

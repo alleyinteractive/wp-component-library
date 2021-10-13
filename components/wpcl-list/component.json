@@ -8,7 +8,7 @@
         ],
         "type": "ordered"
       },
-      "title": "An example ordered list."
+      "title": "An example ordered list"
     },
     {
       "props": {
@@ -18,7 +18,7 @@
         ],
         "type": "unordered"
       },
-      "title": "An example unordered list."
+      "title": "An example unordered list"
     }
   ],
   "props": {
