@@ -80,4 +80,5 @@ jobs:
         shell: bash
         run: |
           cd ${WP_CORE_DIR}wp-content/plugins/wp-component-library
+          composer dump-autoload
           composer phpunit
