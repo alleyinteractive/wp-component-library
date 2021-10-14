@@ -166,3 +166,19 @@ Safely converts a markdown string to HTML and outputs it.
 ```php
 wpcl_markdown( '## This will become an h2' );
 ```
+
+## Loading Styles
+
+If you are using styles that are scoped to your components (e.g., a style.scss
+file in each component directory) you will need to make sure that you are
+running a build of those component styles that is loaded in the admin via the
+`admin_enqueue_scripts` hook so the styles are previewable in the admin view.
+
+## Local Development
+
+The admin views for this plugin are produced using components built using this
+plugin, which allows us to "eat our own dog food," or use the plugin to develop
+the plugin. In order to switch the behavior of the plugin from previewing
+components in the active theme to previewing the components that are used in
+this plugin, simply append `&dogfooding=1` to the admin URL for the components
+view.

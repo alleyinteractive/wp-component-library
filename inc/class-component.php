@@ -208,7 +208,7 @@ class Component {
 		// If we're dogfooding, look in our own component dir.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['dogfooding'] ) && true === (bool) $_GET['dogfooding'] ) {
-			return [ dirname( __DIR__, 2 ) ];
+			return [ dirname( __DIR__ ) ];
 		}
 
 		return [
