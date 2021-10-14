@@ -1,0 +1,37 @@
+{
+  "examples": [
+    {
+      "props": {
+        "items": [
+          "The first item.",
+          "The second item."
+        ],
+        "type": "ordered"
+      },
+      "title": "An example ordered list"
+    },
+    {
+      "props": {
+        "items": [
+          "The first item.",
+          "The second item."
+        ],
+        "type": "unordered"
+      },
+      "title": "An example unordered list"
+    }
+  ],
+  "props": {
+    "items": {
+      "description": "An array of inner HTML for the list items.",
+      "type": "array"
+    },
+    "type": {
+      "allowed_values": ["ordered", "unordered"],
+      "default": "unordered",
+      "description": "The type of list to render.",
+      "type": "enum"
+    }
+  },
+  "title": "WPCL List"
+}

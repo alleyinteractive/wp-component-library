@@ -1,0 +1,25 @@
+{
+  "examples": [
+    {
+      "props": {
+        "header": ["Column 1", "Column 2", "Column 3"],
+        "values": [
+          ["Row 1, Value 1", "Row 1, Value 2", "Row 1, Value 3"],
+          ["Row 2, Value 1", "Row 2, Value 2", "Row 2, Value 3"]
+        ]
+      },
+      "title": "An example table."
+    }
+  ],
+  "props": {
+    "header": {
+      "description": "An array of values to put in the header row.",
+      "type": "array"
+    },
+    "values": {
+      "description": "An array of arrays representing cell values.",
+      "type": "array"
+    }
+  },
+  "title": "WPCL Table"
+}

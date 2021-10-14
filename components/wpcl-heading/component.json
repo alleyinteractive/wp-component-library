@@ -1,0 +1,57 @@
+{
+  "examples": [
+    {
+      "props": {
+        "level": 1,
+        "text": "This is a heading 1"
+      },
+      "title": "An example heading level 1"
+    },
+    {
+      "props": {
+        "level": 2,
+        "text": "This is a heading 2"
+      },
+      "title": "An example heading level 2"
+    },
+    {
+      "props": {
+        "level": 3,
+        "text": "This is a heading 3"
+      },
+      "title": "An example heading level 3"
+    },
+    {
+      "props": {
+        "level": 4,
+        "text": "This is a heading 4"
+      },
+      "title": "An example heading level 4"
+    },
+    {
+      "props": {
+        "level": 5,
+        "text": "This is a heading 5"
+      },
+      "title": "An example heading level 5"
+    },
+    {
+      "props": {
+        "level": 6,
+        "text": "This is a heading 6"
+      },
+      "title": "An example heading level 6"
+    }
+  ],
+  "props": {
+    "level": {
+      "allowed_values": [1, 2, 3, 4, 5, 6],
+      "description": "The heading level, from 1-6.",
+      "type": "enum"
+    },
+    "text": {
+      "description": "Inner text for the heading."
+    }
+  },
+  "title": "WPCL Heading"
+}

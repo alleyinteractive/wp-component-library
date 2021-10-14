@@ -1,0 +1,54 @@
+{
+  "examples": [
+    {
+      "props": {
+        "text": "This is an example error message.",
+        "type": "error"
+      },
+      "title": "An example error notice"
+    },
+    {
+      "props": {
+        "text": "This is an example warning message.",
+        "type": "warning"
+      },
+      "title": "An example warning notice"
+    },
+    {
+      "props": {
+        "text": "This is an example success message.",
+        "type": "success"
+      },
+      "title": "An example success notice"
+    },
+    {
+      "props": {
+        "text": "This is an example info message."
+      },
+      "title": "An example info notice"
+    },
+    {
+      "props": {
+        "dismissible": true,
+        "text": "This is an example dismissible message."
+      },
+      "title": "An example dismissible notice"
+    }
+  ],
+  "props": {
+    "dismissible": {
+      "description": "Whether the notice is dismissible or not.",
+      "type": "bool"
+    },
+    "text": {
+      "description": "The notice text."
+    },
+    "type": {
+      "allowed_values": ["error", "warning", "success", "info"],
+      "default": "info",
+      "description": "The type of notice to display.",
+      "type": "enum"
+    }
+  },
+  "title": "WPCL Admin Notice"
+}
