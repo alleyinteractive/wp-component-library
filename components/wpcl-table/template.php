@@ -9,9 +9,14 @@
 ?>
 
 <table
-	<?php wpcl_class( $args['class'] ); ?>
-	<?php wpcl_id( $args['id'] ); ?>
-	style="background: #000"
+	<?php
+		wpcl_attributes(
+			[
+				'style' => 'background: #000',
+			],
+			$args
+		);
+		?>
 >
 	<?php if ( ! empty( $args['header'] ) ) : ?>
 		<thead>

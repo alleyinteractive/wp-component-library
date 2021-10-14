@@ -31,7 +31,7 @@ class Test_Component extends WP_UnitTestCase {
 			'Test button example 2' => [
 				'button',
 				1,
-				'<button class="button button--secondary newsletter-signup" id="newsletter-signup-footer" type="button">Sign Up for Our Newsletter</button>',
+				'<button class="button button--secondary newsletter-signup" type="button" id="newsletter-signup-footer">Sign Up for Our Newsletter</button>',
 			],
 		];
 	}

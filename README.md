@@ -130,31 +130,35 @@ was provided in the props array, or using default values for each prop.
 wpcl_component( 'button', [ 'href' => 'https://www.example.org', 'text' => 'Visit example.org' ] );
 ```
 
-### wpcl_class
+### wpcl_attributes
 
-Accepts arguments in the same fashion as the
-[classnames npm package](https://www.npmjs.com/package/classnames). If there is
-at least one class name in the list, prints a `class` attribute with the list
-of classnames, properly escaped. If there are no classes, does not print
-anything. Useful for applying multiple classes, conditional classes, derived
+Accepts an array of key/value pairs to set as attributes on an HTML element
+and safely outputs them. Optionally, you can pass the `$args` variable as the
+second parameter and the function will intelligently merge props with default
+values. It is recommended to use this approach for attributes on the root
+element of a component to enable support for setting the `id` and `class` props.
+
+The `class` attribute accepts either a normal string of classes, or an array of
+arguments in the same fashion as the
+[classnames npm package](https://www.npmjs.com/package/classnames).
+This is useful for applying multiple classes, conditional classes, derived
 classes, and merging a set of classes with class names that may have been passed
 to a component via props.
 
 #### Example Usage
 
 ```php
-wpcl_class( 'class-1', [ 'class-2', 'class-3' ], [ 'class-4' => $maybe_include ], $args['class'] );
-```
-
-### wpcl_id
-
-Similar to `wpcl_class`, accepts an ID parameter and conditionally outputs an
-`id` attribute. Useful when adding support for the `id` prop to a component.
-
-#### Example Usage
-
-```php
-wpcl_id( $args['id'] );
+<a
+	<?php
+		wpcl_attributes(
+			[
+				'class' => [ 'class-1', [ 'class-2', 'class-3' ], [ 'class-4' => $maybe_include ] ],
+				'href'  => 'https://www.example.org/',
+			],
+			$args
+		);
+	?>
+>
 ```
 
 ### wpcl_markdown
