@@ -9,6 +9,18 @@
 ?>
 
 <div
-	<?php wpcl_class( 'notice', sprintf( 'notice-%s', $args['type'] ), [ 'is-dismissible' => $args['dismissible'] ], $args['class'] ); ?>
-	<?php wpcl_id( $args['id'] ); ?>
+	<?php
+		wpcl_attributes(
+			[
+				'class' => [
+					'notice',
+					sprintf( 'notice-%s', $args['type'] ),
+					[
+						'is-dismissible' => $args['dismissible'],
+					],
+				],
+			],
+			$args
+		);
+		?>
 ><p><?php echo wp_kses_post( $args['text'] ); ?></p></div>

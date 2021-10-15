@@ -21,7 +21,12 @@ try {
 ?>
 
 <pre
-	<?php wpcl_class( $args['class'] ); ?>
-	<?php wpcl_id( $args['id'] ); ?>
-	style="width: 50%"
+	<?php
+		wpcl_attributes(
+			[
+				'style' => 'width: 50%',
+			],
+			$args
+		);
+		?>
 ><code><?php echo wp_kses_post( $code ); ?></code></pre>

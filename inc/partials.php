@@ -36,24 +36,48 @@ function wpcl_admin_url( string $component, bool $dogfooding ): string {
 }
 
 /**
- * Conditionally output classes as part of a class attribute on an HTML element.
- * Handles negotiating the class list and wrapping it in the class="" attribute
- * along with proper escaping. Does not output anything if there are no classes
- * to print.
+ * Outputs attributes for a tag, properly escaped. Optionally, pass the $args
+ * variable as the second parameter to merge arguments with the class and id
+ * props.
  *
- * Pass a variable-length number of arguments to this function to output a
- * class list. Strings and arrays of strings are added to the class list, and
- * associative arrays with non-numerical keys are assumed to be in the form of
- * classname => condition, where condition is evaluated, and if truthy, the
- * classname is included in the list.
- *
- * @param mixed ...$args A variable number of arguments that can be strings, arrays, or associative arrays.
+ * @param array  $attributes An array of key/value pairs for attributes.
+ * @param ?array $args       Optional. Props passed to the component. If present, merges class and id props.
  */
-function wpcl_class( ...$args ): void {
-	$classnames = classNames( ...$args );
-	if ( ! empty( $classnames ) ) {
-		echo 'class="' . esc_attr( $classnames ) . '"';
+function wpcl_attributes( array $attributes, ?array $args = null ): void {
+	// Merge class and id from args, if present.
+	$attributes['class'] = classNames( $attributes['class'] ?? '', $args['class'] ?? '' );
+	$attributes['id']    = $args['id'] ?? $attributes['id'] ?? '';
+
+	// Loop over attributes, escape, and compile the list for output.
+	$attribute_list = [];
+	foreach ( $attributes as $key => $value ) {
+		// Validate the key against the attribute key spec for HTML.
+		if ( preg_match( '/^[^\t\n\f\s\/>"\'=]+$/', $key ) ) {
+			// Escape according to attribute type.
+			switch ( $key ) {
+				case 'action':
+				case 'cite':
+				case 'formaction':
+				case 'href':
+				case 'poster':
+				case 'src':
+					$value = esc_url( $value );
+					break;
+				default:
+					$value = esc_attr( $value );
+					break;
+			}
+
+			// Add the escaped attribute to the list if it has a value.
+			if ( '' !== $value ) {
+				$attribute_list[] = sprintf( '%s="%s"', $key, $value );
+			}
+		}
 	}
+
+	// Output the (previously escaped) attributes.
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo implode( ' ', $attribute_list );
 }
 
 /**
@@ -65,17 +89,6 @@ function wpcl_class( ...$args ): void {
 function wpcl_component( string $name, array $props = [] ): void {
 	$component = new Component( $name, $props );
 	$component->render();
-}
-/**
- * Conditionally outputs an `id` attribute for an HTML element, given an ID as
- * a string. If the ID is empty, does not output the attribute.
- *
- * @param string $id The ID to print, or an empty string to not output an ID.
- */
-function wpcl_id( string $id ): void {
-	if ( ! empty( $id ) ) {
-		echo 'id="' . esc_attr( $id ) . '"';
-	}
 }
 
 /**
