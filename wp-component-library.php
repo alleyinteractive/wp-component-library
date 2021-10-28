@@ -15,6 +15,11 @@
  * Author: Alley
  */
 
+// If the autoloader doesn't exist yet (no composer install was performed) bail out.
+if ( ! file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	return;
+}
+
 // Composer autoloader.
 require_once __DIR__ . '/vendor/autoload.php';
 
