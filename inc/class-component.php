@@ -176,11 +176,13 @@ class Component {
 	 * uses the negotiated path established by locate_component instead of
 	 * WP's built-in template locator. Fires the same hooks as get_template_part
 	 * for increased compatibility with existing hooks and workflows.
+	 *
+	 * @return bool True if the component template exists. False otherwise.
 	 */
-	public function render() {
+	public function render() : bool {
 		// Ensure the template file exists before attempting to render it.
 		if ( ! file_exists( sprintf( '%s/template.php', $this->path ) ) ) {
-			return;
+			return false;
 		}
 
 		// Populate values for all props, using defaults if no value is provided.
@@ -196,6 +198,8 @@ class Component {
 		/* phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound */
 
 		load_template( sprintf( '%s/template.php', $this->path ), false, $props );
+
+		return true;
 	}
 
 	/**
@@ -241,9 +245,10 @@ class Component {
 			$this->props[ $prop_name ] = new Prop( $prop_name, $prop_definition );
 		}
 
-		// Add props for class and id, which are supported on all components.
+		// Add props for style, class and id, which are supported on all components.
 		$this->props['class'] = new Prop( 'class', [ 'description' => __( 'Additional classes to apply to the element.', 'wp-component-library' ) ] );
 		$this->props['id']    = new Prop( 'id', [ 'description' => __( 'The HTML ID to apply to the element.', 'wp-component-library' ) ] );
+		$this->props['style'] = new Prop( 'style', [ 'description' => __( 'Arbitrary styles from the block editor.', 'wp-component-library' ) ] );
 
 		// If we aren't loading metadata, then stop here.
 		if ( ! $load_metadata ) {

@@ -21,13 +21,9 @@ if ( ! file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 }
 
 // Composer autoloader.
+// Also generates our classmap since we need external packages regardless.
 require_once __DIR__ . '/vendor/autoload.php';
 
-// Classes.
-require_once __DIR__ . '/inc/class-component.php';
-require_once __DIR__ . '/inc/class-example.php';
-require_once __DIR__ . '/inc/class-prop.php';
-
-// Helpers.
+// Helpers & kick off plugin hooks.
 require_once __DIR__ . '/inc/hooks.php';
 require_once __DIR__ . '/inc/partials.php';

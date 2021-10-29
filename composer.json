@@ -11,12 +11,16 @@
   "require": {
     "cjstroud/classnames-php": "^1.0",
     "league/commonmark": "^2.0",
-    "scrivo/highlight.php": "^v9.18"
+    "scrivo/highlight.php": "^v9.18",
+    "paquettg/php-html-parser": "^3.1"
   },
   "require-dev": {
     "alleyinteractive/alley-coding-standards": "^0.3.0",
     "phpunit/phpunit": "7.5.*",
     "yoast/phpunit-polyfills": "^1.0"
+  },
+  "autoload": {
+    "classmap": ["inc/"]
   },
   "scripts": {
     "phpcbf": "phpcbf .",
