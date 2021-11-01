@@ -20,8 +20,7 @@ class Paragraph extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
-		$this->dom_parser->loadStr( $this->raw['innerHTML'] );
-		$el = $this->dom_parser->find( 'p', 0 );
+		$el = $this->dom_parser->root->find( 'p', 0 );
 
 		if ( is_null( $el ) ) {
 			$this->render_fallback();

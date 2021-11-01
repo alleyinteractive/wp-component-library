@@ -33,6 +33,8 @@ trait Interacts_With_Blocks {
 		$this->raw        = $raw_block;
 		$this->attrs      = $raw_block['attrs'];
 		$this->dom_parser = new Dom();
+
+		$this->dom_parser->loadStr( trim( $this->raw['innerHTML'] ) );
 	}
 
 	/**

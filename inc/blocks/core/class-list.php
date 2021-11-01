@@ -22,7 +22,6 @@ class ListBlock extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
-		$this->dom_parser->loadStr( trim( $this->raw['innerHTML'] ) );
 		$root = $this->dom_parser->firstChild();
 
 		foreach ( $root->getAttributes() as $attr => $value ) {
