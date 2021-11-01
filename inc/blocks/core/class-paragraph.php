@@ -27,12 +27,11 @@ class Paragraph extends Anonymous {
 			$this->render_fallback();
 		}
 
-		$attrs = $this->raw['attrs'];
 		foreach ( $el->getAttributes() as $attr => $value ) {
-			$attrs[ $attr ] = $value;
+			$this->attrs[ $attr ] = $value;
 		}
-		$attrs['content'] = $el->innerHtml();
+		$this->attrs['content'] = $el->innerHtml();
 
-		$this->render_component( $attrs );
+		$this->render_component( $this->attrs );
 	}
 }

@@ -17,6 +17,13 @@ trait Interacts_With_Blocks {
 	protected array $raw;
 
 	/**
+	 * The Block/component attributes.
+	 *
+	 * @var array
+	 */
+	protected array $attrs;
+
+	/**
 	 * Undocumented function
 	 *
 	 * @param array $raw_block Raw block data.
@@ -24,6 +31,7 @@ trait Interacts_With_Blocks {
 	 */
 	public function __construct( array $raw_block ) {
 		$this->raw        = $raw_block;
+		$this->attrs      = $raw_block['attrs'];
 		$this->dom_parser = new Dom();
 	}
 

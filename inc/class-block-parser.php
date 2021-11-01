@@ -61,6 +61,13 @@ class Block_Parser {
 	 * @return string The class string.
 	 */
 	private static function build_class_string( string $directory, string $file_name ): string {
+
+		// Some core blocks use reserved keywords in PHP. If you need to use one, define it here.
+		// The result will attempt to load the original with "Block" appended.
+		$reserved = [ 'list' ];
+		if ( in_array( $file_name, $reserved, true ) ) {
+			$file_name = $file_name .= 'Block';
+		}
 		return '\\' . __NAMESPACE__ . '\\Blocks\\' . ucfirst( $directory ) . '\\' . ucfirst( $file_name );
 	}
 }
