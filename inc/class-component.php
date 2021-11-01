@@ -248,7 +248,6 @@ class Component {
 		// Add props for style, class and id, which are supported on all components.
 		$this->props['class'] = new Prop( 'class', [ 'description' => __( 'Additional classes to apply to the element.', 'wp-component-library' ) ] );
 		$this->props['id']    = new Prop( 'id', [ 'description' => __( 'The HTML ID to apply to the element.', 'wp-component-library' ) ] );
-		$this->props['style'] = new Prop( 'style', [ 'description' => __( 'Arbitrary styles from the block editor.', 'wp-component-library' ) ] );
 
 		// If we aren't loading metadata, then stop here.
 		if ( ! $load_metadata ) {

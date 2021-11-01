@@ -48,7 +48,6 @@ function wpcl_attributes( array $attributes, ?array $args = null ): void {
 	// Merge class and id from args, if present.
 	$attributes['class'] = classNames( $attributes['class'] ?? '', $args['class'] ?? '' );
 	$attributes['id']    = $args['id'] ?? $attributes['id'] ?? '';
-	$attributes['style'] = $args['style'] ?? $attributes['style'] ?? '';
 
 	// Loop over attributes, escape, and compile the list for output.
 	$attribute_list = [];
@@ -91,15 +90,9 @@ function wpcl_blocks(): void {
 
 	$blocks = parse_blocks( $post->post_content );
 
-	// We need to buffer the block output so we can run
-	// it through the_content filter to apply embeds
-	// and other hooks.
-	ob_start();
 	foreach ( $blocks as $block ) {
 		Block_Parser::factory( $block )->render();
 	}
-	// phpcs:ignore
-	echo apply_filters( 'the_content', ob_get_clean() );
 }
 
 /**

@@ -1,10 +1,10 @@
 <?php
-
 /**
  * WP Component Library includes: Core Block Parser
  *
  * @package WP_Component_Library
  */
+
 namespace WP_Component_Library;
 
 use WP_Component_Library\Blocks\Block;
@@ -30,7 +30,8 @@ class Block_Parser {
 			$block = new $class_to_load( $raw_block );
 		} catch ( \Throwable $e ) {
 			$block = new Anonymous( $raw_block );
-			! empty( $class_to_load ) && wpcl_log( $class_to_load . ' was not found. You may need to dump your autoloader.' );
+			// translators: class name.
+			! empty( $class_to_load ) && wpcl_log( sprintf( __( '%s was not found. You may need to dump your autoloader.', 'wp-component-library' ), $class_to_load ) );
 		}
 
 		return $block;

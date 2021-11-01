@@ -1,7 +1,8 @@
 <?php
-
 /**
- * The interface that defines a block to be used with WPCL.
+ * WP Component Library includes: The interface that defines a block to be used with WPCL.
+ *
+ * @package WP_Component_Library
  */
 
 namespace WP_Component_Library\Blocks;
@@ -15,7 +16,7 @@ interface Block {
 	public function __construct( array $raw_block );
 
 	/**
-	 * Echos a WPCL component.
+	 * Echos a WPCL component from a block.
 	 *
 	 * @return void
 	 */

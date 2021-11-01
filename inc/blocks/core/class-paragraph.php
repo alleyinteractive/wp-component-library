@@ -1,24 +1,30 @@
 <?php
+/**
+ * WP Component Library includes: Paragraph Block class
+ *
+ * @package WP_Component_Library
+ */
 
 namespace WP_Component_Library\Blocks\Core;
 
-use DOMDocument;
-use PHPHtmlParser\Dom;
-use WP_Component_Library\Block;
 use WP_Component_Library\Blocks\Anonymous;
 
+/**
+ * Renders a paragraph block as a WPCL component.
+ */
 class Paragraph extends Anonymous {
 
 	/**
-	 * @inheritDoc
+	 * Render the the block.
+	 *
+	 * @return void
 	 */
 	public function render(): void {
-		$dom = new Dom();
-		$dom->loadStr( $this->raw['innerHTML'] );
-		$el = $dom->find( 'p', 0 );
+		$this->dom_parser->loadStr( $this->raw['innerHTML'] );
+		$el = $this->dom_parser->find( 'p', 0 );
 
 		if ( is_null( $el ) ) {
-			echo wp_kses_post( $this->raw['innerHTML'] );
+			$this->render_fallback();
 		}
 
 		$attrs = $this->raw['attrs'];
@@ -27,10 +33,6 @@ class Paragraph extends Anonymous {
 		}
 		$attrs['content'] = $el->innerHtml();
 
-		$success = wpcl_component( 'core-paragraph', $attrs );
-
-		if ( ! $success ) {
-			echo wp_kses_post( $this->raw['innerHTML'] );
-		}
+		$this->render_component( $attrs );
 	}
 }
