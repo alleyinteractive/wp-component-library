@@ -43,7 +43,7 @@ trait Interacts_With_Blocks {
 	 * @return void
 	 */
 	public function render(): void {
-		$this->render_component( [] );
+		$this->render_component();
 	}
 
 	/**
@@ -54,7 +54,8 @@ trait Interacts_With_Blocks {
 	 * @param string|null $component_name The name of the component to attempt to render from the theme.
 	 * @return void
 	 */
-	public function render_component( array $attrs, ?string $component_name = null ): void {
+	public function render_component( ?array $attrs = null, ?string $component_name = null ): void {
+		$attrs          ??= $this->attrs;
 		$component_name ??= 'block-' . str_replace( '/', '-', $this->raw['blockName'] );
 		if ( ! wpcl_component( $component_name, $attrs ) ) {
 			$this->render_fallback();
