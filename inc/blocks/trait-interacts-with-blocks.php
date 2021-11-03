@@ -24,6 +24,13 @@ trait Interacts_With_Blocks {
 	protected array $attrs;
 
 	/**
+	 * The DOM parser instance.
+	 *
+	 * @var Dom
+	 */
+	protected object $dom_parser;
+
+	/**
 	 * Undocumented function
 	 *
 	 * @param array $raw_block Raw block data.
