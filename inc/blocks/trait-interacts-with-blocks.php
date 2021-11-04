@@ -41,6 +41,10 @@ trait Interacts_With_Blocks {
 		$this->attrs      = $raw_block['attrs'];
 		$this->dom_parser = new Dom();
 
+		// Escape hatch for components that may want to render the original block.
+		$this->attrs['raw'] = $raw_block;
+
+		// Load the block's HTML as an initial root for the DOM parser.
 		$this->dom_parser->loadStr( trim( $this->raw['innerHTML'] ) );
 	}
 
