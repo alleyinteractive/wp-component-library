@@ -84,11 +84,15 @@ function wpcl_attributes( array $attributes, ?array $args = null ): void {
 /**
  * A helper function for converting Gutenberg blocks to
  * WPCL components and loading them.
+ *
+ * @param mixed|null|array $blocks An array of blocks to render, or default to blocks from `post_content`.
+ *
+ * @return void
  */
-function wpcl_blocks(): void {
+function wpcl_blocks( ?array $blocks = null ): void {
 	global $post;
 
-	$blocks = parse_blocks( $post->post_content );
+	$blocks ??= parse_blocks( $post->post_content );
 
 	foreach ( $blocks as $block ) {
 		Block_Parser::factory( $block )->render();
