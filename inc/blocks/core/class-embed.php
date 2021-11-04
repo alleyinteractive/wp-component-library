@@ -27,7 +27,6 @@ class Embed extends Anonymous {
 		}
 
 		$this->attrs['provider'] = $this->attrs['providerNameSlug'] ?? '';
-		$this->attrs['raw']      = $this->raw['innerHTML'];
 
 		$this->render_component( $this->attrs );
 	}
