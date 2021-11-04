@@ -36,7 +36,7 @@ class Button extends Anonymous {
 		$this->attrs['link'] = $this->attrs['linkAttributes']['href'] ?? '';
 		unset( $this->attrs['linkAttributes']['href'] );
 
-		$this->attrs['content'] = optional( $root->find( 'a', 0 ) )->innerHtml();
+		$this->attrs['content'] = optional( $link )->innerHtml() ?? '';
 
 		$this->render_component( $this->attrs );
 	}
