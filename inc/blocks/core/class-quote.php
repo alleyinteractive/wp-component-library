@@ -26,8 +26,8 @@ class Quote extends Anonymous {
 			$this->attrs[ $attr ] = $value;
 		}
 
-		$this->attrs['citation'] = $root->find( 'cite', 0 )->innerHtml();
-		$this->attrs['content']  = $root->find( 'p', 0 )->innerHtml();
+		$this->attrs['citation'] = optional( $root->find( 'cite', 0 ) )->innerHtml() ?? '';
+		$this->attrs['content']  = optional( $root->find( 'p', 0 ) )->innerHtml() ?? '';
 
 		$this->render_component( $this->attrs );
 	}

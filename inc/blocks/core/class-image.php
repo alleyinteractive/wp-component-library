@@ -40,12 +40,7 @@ class Image extends Anonymous {
 	 * @return string
 	 */
 	private function get_link( string $fallback = '' ): string {
-		try {
-			$maybe_url = $this->dom_parser->find( 'a', 0 )->getAttribute( 'href' );
-		} catch ( \Throwable $e ) {
-			// If we didn't find an anchor tag, fail silently.
-			$maybe_url = null;
-		}
+		$maybe_url = optional( $this->dom_parser->find( 'a', 0 ) )->getAttribute( 'href' );
 		return $maybe_url ?? $fallback;
 	}
 }

@@ -8,6 +8,7 @@
 namespace WP_Component_Library\Blocks;
 
 use PHPHtmlParser\Dom;
+
 trait Interacts_With_Blocks {
 	/**
 	 * The raw block data.

@@ -20,6 +20,7 @@ class Video extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
+		// Videos are wrapped in a <figure> element.
 		$root  = $this->dom_parser->firstChild();
 		$video = $root->find( 'video', 0 );
 

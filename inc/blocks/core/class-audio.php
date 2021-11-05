@@ -20,6 +20,7 @@ class Audio extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
+		// Audio is wrapped in a <figure> element.
 		$root  = $this->dom_parser->firstChild();
 		$audio = $root->find( 'audio', 0 );
 

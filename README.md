@@ -171,6 +171,23 @@ Safely converts a markdown string to HTML and outputs it.
 wpcl_markdown( '## This will become an h2' );
 ```
 
+### wpcl_blocks
+
+Attempts to render `core/*` blocks using components defined in the theme. If no component
+is found, then the blocks normal renderer is used instead.
+
+You can also call this function recursively if your block contains `innerBlocks` that you would also like to handle.
+
+#### Example Usage
+
+```php
+// single.php or in The Loop™. Defaults to blocks from post_content
+wpcl_blocks();
+
+// Or call it anywhere, passing in block definitions from a function like parse_blocks()
+wpcl_blocks( $blocks );
+```
+
 ## Loading Styles
 
 If you are using styles that are scoped to your components (e.g., a style.scss

@@ -20,16 +20,13 @@ class Paragraph extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
-		$el = $this->dom_parser->root->find( 'p', 0 );
+		$root = $this->dom_parser->firstChild();
 
-		if ( is_null( $el ) ) {
-			$this->render_fallback();
-		}
-
-		foreach ( $el->getAttributes() as $attr => $value ) {
+		foreach ( $root->getAttributes() as $attr => $value ) {
 			$this->attrs[ $attr ] = $value;
 		}
-		$this->attrs['content'] = $el->innerHtml();
+
+		$this->attrs['content'] = $root->innerHtml();
 
 		$this->render_component( $this->attrs );
 	}
