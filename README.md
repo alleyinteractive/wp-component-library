@@ -66,6 +66,16 @@ An array of objects defining props for the component, the spec for which is as f
 A string that names the component when it is viewed in the admin. For example,
 "Button."
 
+#### Props for `core/*` blocks
+
+All supported core blocks include a `raw` prop that you can include into your `component.json` file if you would like to extend the functionality of the block within your theme/plugin utilizing the block's original attributes.
+
+Many of the core blocks implicity pass their HTML attributes as potential props that can be utlized by a component, but aren't explicitly defined in the examples. This is to provide support for updates within WordPress that may introduce new functionality in the future.
+
+Only props that are explicitly declared in your `component.json` file will be passed to `template.php`. You can add a temporary logging statement to the `wpcl_component()` function to debug potential props.
+
+> Potential enchancement: expose this information 👆️ if a constant is declared similar to WP_DEBUG.
+
 #### Example
 
 An example `component.json` can be found in
@@ -174,7 +184,7 @@ wpcl_markdown( '## This will become an h2' );
 ### wpcl_blocks
 
 Attempts to render `core/*` blocks using components defined in the theme. If no component
-is found, then the blocks normal renderer is used instead.
+is found, then the block's normal renderer is used instead.
 
 You can also call this function recursively if your block contains `innerBlocks` that you would also like to handle.
 
