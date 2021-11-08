@@ -25,7 +25,7 @@
   },
   "scripts": {
     "phpcbf": "phpcbf .",
-    "phpcs": "phpcs . --runtime-set text_domain wp-component-library --runtime-set prefixes wpcl,wp_component_library",
+    "phpcs": "phpcs . --runtime-set text_domain wp-component-library",
     "phpunit": "phpunit"
   },
   "type": "project"

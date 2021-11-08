@@ -2,7 +2,7 @@
 
 Supported blocks within this plugin are auto loaded based on the block name in JS.
 
-To add support to the this plugin for a block from a 3rd party, include a new directory, as well as a PHP class file that matches the following convention:
+To add support to this plugin for a block from a 3rd party, include a new directory, as well as a PHP class file that matches the following convention:
 
 ```
 blocks
