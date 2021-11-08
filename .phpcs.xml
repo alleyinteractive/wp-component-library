@@ -32,6 +32,9 @@
   <config name="minimum_supported_wp_version" value="5.8" />
 
   <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+    <properties>
+			<property name="prefixes" type="array" value="wp_component_library,wpcl" />
+		</properties>
     <exclude-pattern>components/</exclude-pattern>
   </rule>
 </ruleset>
