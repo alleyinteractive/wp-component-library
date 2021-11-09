@@ -77,7 +77,7 @@ if ( ! empty( $featured_component ) ) {
 				'wpcl-admin-notice',
 				[
 					'type' => 'error',
-					'text' => __( 'The component could not be rendered.', 'wp-component-library' )
+					'text' => __( 'The component could not be rendered.', 'wp-component-library' ),
 				]
 			);
 		}
