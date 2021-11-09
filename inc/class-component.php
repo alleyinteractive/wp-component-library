@@ -188,6 +188,11 @@ class Component {
 			return;
 		}
 
+		/**
+		 * Whether to show component errors or not.
+		 *
+		 * @param bool $hide_notices Flag to hide/show notices.
+		 */
 		if ( apply_filters( 'wpcl_hide_component_errors_as_notices', false ) ) {
 			return;
 		}
