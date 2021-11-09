@@ -13,6 +13,9 @@ $featured_component = ! empty( $args['component'] )
 	? new Component( $args['component'], [], 'preview' )
 	: null;
 
+// Print any admin notices from erroring components.
+do_action( 'wpcl_admin_notices' );
+
 // Get examples, if there are any.
 $examples       = $featured_component ? $featured_component->get_examples() : [];
 $total_examples = count( $examples );
@@ -67,7 +70,17 @@ if ( ! empty( $featured_component ) ) {
 		);
 
 		// Render the component preview.
-		$featured_component->render();
+		$success = $featured_component->render();
+
+		if ( ! $success ) {
+			wpcl_component(
+				'wpcl-admin-notice',
+				[
+					'type' => 'error',
+					'text' => __( 'The component could not be rendered.', 'wp-component-library' ),
+				]
+			);
+		}
 
 		// Construct the sample code and render it.
 		$code = sprintf(

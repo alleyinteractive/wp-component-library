@@ -14,6 +14,13 @@ namespace WP_Component_Library;
  */
 class Component {
 	/**
+	 * The reason(s) the current component is invalid.
+	 *
+	 * @var string[]
+	 */
+	private array $error_reasons = [];
+
+	/**
 	 * An array of Examples for this component.
 	 *
 	 * @var Example[]
@@ -106,6 +113,7 @@ class Component {
 		$this->locate_component();
 		$this->load_config( 'preview' === $context );
 		$this->load_props( $props );
+		$this->maybe_show_errors();
 	}
 
 	/**
@@ -171,6 +179,43 @@ class Component {
 	}
 
 	/**
+	 * Show errors on WPCL admin screens only.
+	 *
+	 * @return void
+	 */
+	private function maybe_show_errors(): void {
+		if ( empty( $this->error_reasons ) || ! is_admin() ) {
+			return;
+		}
+
+		/**
+		 * Whether to show component errors or not.
+		 *
+		 * @param bool $hide_notices Flag to hide/show notices.
+		 */
+		if ( apply_filters( 'wpcl_hide_component_errors_as_notices', false ) ) {
+			return;
+		}
+
+		foreach ( $this->error_reasons as $error ) {
+			// @todo Refactor this to use named hooks.
+			add_action(
+				'wpcl_admin_notices',
+				function() use ( $error ) {
+					$error = "$this->name - $error";
+					wpcl_component(
+						'wpcl-admin-notice',
+						[
+							'type' => 'error',
+							'text' => $error,
+						]
+					);
+				}
+			);
+		}
+	}
+
+	/**
 	 * Renders this template part, using the props system to validate values
 	 * and provide fallbacks. Mimics the behavior of get_template_part, but
 	 * uses the negotiated path established by locate_component instead of
@@ -180,26 +225,50 @@ class Component {
 	 * @return bool True if the component template exists. False otherwise.
 	 */
 	public function render() : bool {
-		// Ensure the template file exists before attempting to render it.
-		if ( ! file_exists( sprintf( '%s/template.php', $this->path ) ) ) {
+		try {
+			// Ensure the template file exists before attempting to render it.
+			if ( ! file_exists( sprintf( '%s/template.php', $this->path ) ) ) {
+				$this->set_error_reason( __( 'No template found.', 'wp-component-library' ) );
+				return false;
+			}
+
+			// Populate values for all props, using defaults if no value is provided.
+			$props = [];
+			foreach ( $this->props as $prop_name => $prop ) {
+				$props[ $prop_name ] = $prop->get_value();
+			}
+
+			/* phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound */
+			$slug = sprintf( 'components/%s/template', $this->name );
+			do_action( "get_template_part_{$slug}", $slug, null, $props );
+			do_action( 'get_template_part', $slug, null, [ "{$slug}.php" ], $props );
+			/* phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound */
+
+			load_template( sprintf( '%s/template.php', $this->path ), false, $props );
+		} catch ( \Throwable $e ) {
+			wpcl_log(
+				sprintf(
+					// translators: the component name and the returned error message.
+					__( 'There was a problem rendering the component: %1$s. Error: %2$s', 'wp-component-library' ),
+					$this->name,
+					$e->getMessage()
+				)
+			);
+			$this->set_error_reason( __( 'There was a throwable error during rendering.', 'wp-component-library' ) );
 			return false;
 		}
-
-		// Populate values for all props, using defaults if no value is provided.
-		$props = [];
-		foreach ( $this->props as $prop_name => $prop ) {
-			$props[ $prop_name ] = $prop->get_value();
-		}
-
-		/* phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound */
-		$slug = sprintf( 'components/%s/template', $this->name );
-		do_action( "get_template_part_{$slug}", $slug, null, $props );
-		do_action( 'get_template_part', $slug, null, [ "{$slug}.php" ], $props );
-		/* phpcs:enable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound */
-
-		load_template( sprintf( '%s/template.php', $this->path ), false, $props );
-
 		return true;
+	}
+
+	/**
+	 * Set's the reason the component cannot be rendered/parsed.
+	 *
+	 * @param string $reason The Reason™.
+	 * @return void
+	 */
+	public function set_error_reason( string $reason ): void {
+		$this->error_reasons[] = $reason;
+		$this->error_reasons   = array_unique( $this->error_reasons );
 	}
 
 	/**
@@ -231,11 +300,18 @@ class Component {
 		// Ensure we have a path and the component file exists.
 		$filepath = sprintf( '%s/component.json', $this->path );
 		if ( empty( $this->path ) || ! file_exists( $filepath ) ) {
+			$this->set_error_reason( __( 'Component JSON configuration not found.', 'wp-component-library' ) );
 			return;
 		}
 
 		// Load the contents of the configuration.
 		$config = json_decode( file_get_contents( $filepath ), true ); // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
+
+		if ( is_null( $config ) ) {
+			// translators: the invalid file's name and the name of the current component.
+			wpcl_log( sprintf( __( 'The %1$s config file is invalid for the %2$s component.', 'wp-component-library' ), 'component.json', $this->name ) );
+			$this->set_error_reason( __( 'Component JSON configuration is invalid.', 'wp-component-library' ) );
+		}
 
 		// Set the title.
 		$this->title = $config['title'] ?? '';

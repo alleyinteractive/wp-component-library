@@ -104,11 +104,27 @@ function wpcl_blocks( ?array $blocks = null ): void {
  *
  * @param string $name  The name of the component to load.
  * @param array  $props Optional. An array of props for the component. Defaults to empty array.
- * @return bool If the component template file was found and rendered.
+ * @param bool   $return_output Optional. Whether to echo the output of the component or only return it.
+ * @return string Empty if the component template file was found and rendered. If the output was
  */
-function wpcl_component( string $name, array $props = [] ): bool {
+function wpcl_component( string $name, array $props = [], $return_output = false ): string {
+	ob_start();
 	$component = new Component( $name, $props );
-	return $component->render();
+	$success   = $component->render();
+	$output    = ob_get_clean();
+
+	if ( false === $success ) {
+		return '';
+	}
+
+	if ( false === $return_output ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $output; // Already escaped in component template files.
+	}
+
+	// Default return can be treated as "truthy" to determine if
+	// the rendering of the component was successful or not.
+	return $output;
 }
 
 /**

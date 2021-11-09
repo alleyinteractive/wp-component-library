@@ -69,8 +69,13 @@ trait Interacts_With_Blocks {
 	public function render_component( ?array $attrs = null, ?string $component_name = null ): void {
 		$attrs          ??= $this->attrs;
 		$component_name ??= 'block-' . str_replace( '/', '-', $this->raw['blockName'] );
-		if ( ! wpcl_component( $component_name, $attrs ) ) {
+		$output           = wpcl_component( $component_name, $attrs, true );
+
+		if ( empty( $output ) ) {
 			$this->render_fallback();
+		} else {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $output; // Escaped in component template file.
 		}
 	}
 
