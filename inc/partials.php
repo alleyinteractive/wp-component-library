@@ -109,11 +109,11 @@ function wpcl_blocks( ?array $blocks = null ): void {
  */
 function wpcl_component( string $name, array $props = [], $return_output = false ): string {
 	ob_start();
-	$component                       = new Component( $name, $props );
-	$no_render_error_was_encountered = $component->render();
-	$output                          = ob_get_clean();
+	$component = new Component( $name, $props );
+	$success   = $component->render();
+	$output    = ob_get_clean();
 
-	if ( false === $no_render_error_was_encountered ) {
+	if ( false === $success ) {
 		return '';
 	}
 
@@ -122,8 +122,8 @@ function wpcl_component( string $name, array $props = [], $return_output = false
 		echo $output; // Already escaped in component template files.
 	}
 
-	// Default return can be treated as "truthy" to determine if the loading
-	// of the component was successful or not.
+	// Default return can be treated as "truthy" to determine if
+	// the rendering of the component was successful or not.
 	return $output;
 }
 
