@@ -198,6 +198,7 @@ class Component {
 		}
 
 		foreach ( $this->error_reasons as $error ) {
+			// @todo Refactor this to use named hooks.
 			add_action(
 				'wpcl_admin_notices',
 				function() use ( $error ) {
