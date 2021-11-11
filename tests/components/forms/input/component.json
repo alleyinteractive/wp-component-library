@@ -1,0 +1,16 @@
+{
+  "examples": [
+    {},
+    {
+      "props": {
+        "type": "checkbox"
+      }
+    }
+  ],
+  "props": {
+    "type": {
+      "default": "text"
+    }
+  },
+  "title": "input"
+}

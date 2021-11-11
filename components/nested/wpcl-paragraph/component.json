@@ -1,0 +1,16 @@
+{
+  "examples": [
+    {
+      "props": {
+        "text": "Hello, I am a <b>test paragraph</b>."
+      },
+      "title": "Paragraph with bold text."
+    }
+  ],
+  "props": {
+    "text": {
+      "description": "The text to display in the paragraph."
+    }
+  },
+  "title": "WPCL Nested Component: Paragraph"
+}
