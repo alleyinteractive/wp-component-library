@@ -86,19 +86,50 @@ class Component {
 		}
 
 		// Scan the components directory to build a list of components.
-		$slugs = array_filter(
-			scandir( $components_dir ),
-			function ( $dir ) use ( $components_dir ) {
-				return '.' !== $dir
-					&& '..' !== $dir
-					&& is_dir( sprintf( '%s/%s', $components_dir, $dir ) );
-			}
-		);
+		$slugs = self::get_component_slugs_recursively_from_dir( $components_dir );
+
 		foreach ( $slugs as $slug ) {
 			$components[] = new self( $slug );
 		}
 
 		return $components;
+	}
+
+	/**
+	 * Recursively get slugs to instantiate components from folders/files in a directory.
+	 *
+	 * @param string $components_dir The dir containing components.
+	 * @return array
+	 */
+	private static function get_component_slugs_recursively_from_dir( string $components_dir ): array {
+		$slugs     = [];
+		$directory = new \RecursiveDirectoryIterator( $components_dir, \FilesystemIterator::FOLLOW_SYMLINKS );
+		$filter    = new \RecursiveCallbackFilterIterator(
+			$directory,
+			function ( $current, $key, $iterator ) {
+				// Skip hidden files and directories.
+				if ( '.' === $current->getFilename()[0] ) {
+					return false;
+				}
+
+				// Keep going deeper to find more components.
+				if ( $iterator->hasChildren() ) {
+					return true;
+				}
+
+				// We need a template.php file for a component to be rendered.
+				return strpos( $current->getFilename(), 'template' ) === 0;
+			}
+		);
+
+		$iterator = new \RecursiveIteratorIterator( $filter );
+
+		foreach ( $iterator as $info ) {
+			$parts   = explode( trailingslashit( $components_dir ), $info->getPathname() );
+			$slugs[] = untrailingslashit( str_replace( 'template.php', '', array_pop( $parts ) ) );
+		}
+
+		return $slugs;
 	}
 
 	/**
@@ -114,6 +145,24 @@ class Component {
 		$this->load_config( 'preview' === $context );
 		$this->load_props( $props );
 		$this->maybe_show_errors();
+	}
+
+	/**
+	 * Display any accumulated admin notices.
+	 *
+	 * @return void
+	 */
+	public function display_admin_notices(): void {
+		foreach ( $this->error_reasons as $error ) {
+			$error = "$this->name - $error";
+			wpcl_component(
+				'wpcl-admin-notice',
+				[
+					'type' => 'error',
+					'text' => $error,
+				]
+			);
+		}
 	}
 
 	/**
@@ -197,22 +246,7 @@ class Component {
 			return;
 		}
 
-		foreach ( $this->error_reasons as $error ) {
-			// @todo Refactor this to use named hooks.
-			add_action(
-				'wpcl_admin_notices',
-				function() use ( $error ) {
-					$error = "$this->name - $error";
-					wpcl_component(
-						'wpcl-admin-notice',
-						[
-							'type' => 'error',
-							'text' => $error,
-						]
-					);
-				}
-			);
-		}
+		add_action( 'wpcl_admin_notices', [ $this, 'display_admin_notices' ] );
 	}
 
 	/**
