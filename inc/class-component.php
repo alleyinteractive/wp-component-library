@@ -122,10 +122,10 @@ class Component {
 			}
 		);
 
-		$iterator = new \RecursiveIteratorIterator( $filter );
+		$files = new \RecursiveIteratorIterator( $filter );
 
-		foreach ( $iterator as $info ) {
-			$parts   = explode( trailingslashit( $components_dir ), $info->getPathname() );
+		foreach ( $files as $file ) {
+			$parts   = explode( trailingslashit( $components_dir ), $file->getPathname() );
 			$slugs[] = untrailingslashit( str_replace( 'template.php', '', array_pop( $parts ) ) );
 		}
 
