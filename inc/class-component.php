@@ -7,6 +7,11 @@
 
 namespace WP_Component_Library;
 
+use FilesystemIterator;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
+use RecursiveCallbackFilterIterator;
+
 /**
  * A class representing a component.
  *
@@ -103,8 +108,8 @@ class Component {
 	 */
 	private static function get_component_slugs_recursively_from_dir( string $components_dir ): array {
 		$slugs     = [];
-		$directory = new \RecursiveDirectoryIterator( $components_dir, \FilesystemIterator::FOLLOW_SYMLINKS );
-		$filter    = new \RecursiveCallbackFilterIterator(
+		$directory = new RecursiveDirectoryIterator( $components_dir, FilesystemIterator::FOLLOW_SYMLINKS );
+		$filter    = new RecursiveCallbackFilterIterator(
 			$directory,
 			function ( $current, $key, $iterator ) {
 				// Skip hidden files and directories.
@@ -122,7 +127,7 @@ class Component {
 			}
 		);
 
-		$files = new \RecursiveIteratorIterator( $filter );
+		$files = new RecursiveIteratorIterator( $filter );
 
 		foreach ( $files as $file ) {
 			$parts   = explode( trailingslashit( $components_dir ), $file->getPathname() );
