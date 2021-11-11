@@ -33,6 +33,26 @@ class Test_Component extends WP_UnitTestCase {
 				1,
 				'<button class="button button--secondary newsletter-signup" type="button" id="newsletter-signup-footer">Sign Up for Our Newsletter</button>',
 			],
+			'Test nested component' => [
+				'forms/input',
+				0,
+				'<input type="text">',
+			],
+			'Test nested component with props' => [
+				'forms/input',
+				1,
+				'<input type="checkbox">',
+			],
+			'Test deeply nested component' => [
+				'forms/complex/textarea',
+				0,
+				'<textarea></textarea>',
+			],
+			'Test deeply nested component with dashes in filename' => [
+				'forms/deeply-nested/simple-label',
+				0,
+				'<label></label>',
+			],
 		];
 	}
 
