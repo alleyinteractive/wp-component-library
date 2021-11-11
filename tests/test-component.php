@@ -23,17 +23,17 @@ class Test_Component extends WP_UnitTestCase {
 	 */
 	public function data_render(): array {
 		return [
-			'Test Button example 1' => [
+			'Test Button example 1'            => [
 				'button',
 				0,
 				'<a class="button button--primary" href="https://www.example.org/newsletter">Sign Up for Our Newsletter</a>',
 			],
-			'Test button example 2' => [
+			'Test button example 2'            => [
 				'button',
 				1,
 				'<button class="button button--secondary newsletter-signup" type="button" id="newsletter-signup-footer">Sign Up for Our Newsletter</button>',
 			],
-			'Test nested component' => [
+			'Test nested component'            => [
 				'forms/input',
 				0,
 				'<input type="text">',
@@ -43,7 +43,7 @@ class Test_Component extends WP_UnitTestCase {
 				1,
 				'<input type="checkbox">',
 			],
-			'Test deeply nested component' => [
+			'Test deeply nested component'     => [
 				'forms/complex/textarea',
 				0,
 				'<textarea></textarea>',
