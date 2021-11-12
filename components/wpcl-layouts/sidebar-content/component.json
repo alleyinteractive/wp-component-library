@@ -1,0 +1,19 @@
+{
+  "examples": [
+    {
+      "props": {
+        "sidebar": "<div style='background: red; min-height: 200px;'></div>",
+        "content": "<div style='background: rebeccapurple; min-height: 500px;'></div>"
+      }
+    }
+  ],
+  "props": {
+    "sidebar": {
+      "description": "HTML string of sidebar content."
+    },
+    "content": {
+      "description": "HTML string of main column content."
+    }
+  },
+  "title": "WPCL Layouts / Sidebar-Content"
+}
