@@ -1,0 +1,25 @@
+{
+  "examples": [
+    {
+      "props": {
+        "src": "https://alley.co",
+        "width": "800px",
+        "height": "500px"
+      }
+    }
+  ],
+  "title": "WPCL iFrame Preview",
+  "props": {
+    "src": {
+      "description": "The source of the iframe."
+    },
+    "width": {
+      "description": "The width of the iframe. Must be a valid CSS unit.",
+      "default": "100%"
+    },
+    "height": {
+      "description": "The height of the iframe. Must be a valid CSS unit.",
+      "default": "90vh"
+    }
+  }
+}
