@@ -16,9 +16,11 @@ $featured_component = ! empty( $args['component'] )
 // Print any admin notices from erroring components.
 do_action( 'wpcl_admin_notices' );
 
-if ( ! empty( $_GET['inline'] ) ) : ?>
+// phpcs:disable WordPressVIPMinimum.UserExperience.AdminBarRemoval.HidingDetected
+if ( ! empty( $_GET['inline'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
 	<style>
 		#wpadminbar, #adminmenumain, #wpfooter {
+			/* phpcs:ignore WordPressVIPMinimum.UserExperience.AdminBarRemoval.HidingDetected */
 			display: none !important;
 		}
 		html.wp-toolbar, #wpcontent {
@@ -35,6 +37,7 @@ if ( ! empty( $_GET['inline'] ) ) : ?>
 	</script>
 	<?php
 endif;
+// phpcs:enable WordPressVIPMinimum.UserExperience.AdminBarRemoval.HidingDetected
 
 // Get examples, if there are any.
 $examples       = $featured_component ? $featured_component->get_examples() : [];
@@ -57,7 +60,7 @@ if ( ! empty( $featured_component ) ) {
 		}
 	}
 	echo '<div style="margin-top: 1em">';
-	if ( empty( $_GET['inline'] ) ) {
+	if ( empty( $_GET['inline'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		wpcl_component(
 			'wpcl-button',
 			[
@@ -181,7 +184,7 @@ if ( ! empty( $featured_component ) ) {
 							return sprintf(
 								'<a href="%s" data-wpcl-preview="%s">%s</a>',
 								esc_url( wpcl_admin_url( $component->get_name(), $args['dogfooding'] ) ),
-								esc_url( wpcl_admin_url( $component->get_name(), $args['dogfooding'] ) . '&inline=true' ),
+								esc_url( add_query_arg( [ 'inline' => 'true' ], wpcl_admin_url( $component->get_name(), $args['dogfooding'] ) ) ),
 								$component->get_title()
 							);
 						},
