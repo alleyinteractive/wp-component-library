@@ -165,6 +165,9 @@ function wpcl_phpify( $value, int $level = 0 ): string {
 		}
 	} elseif ( is_string( $value ) ) {
 		$ret .= '\'' . $value . '\'';
+	} elseif ( is_object( $value ) ) {
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
+		$ret .= var_export( $value, true );
 	} elseif ( true === $value ) {
 		$ret .= 'true';
 	} elseif ( false === $value ) {
