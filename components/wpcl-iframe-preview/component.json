@@ -19,7 +19,7 @@
     },
     "height": {
       "description": "The height of the iframe. Must be a valid CSS unit.",
-      "default": "90vh"
+      "default": "85vh"
     }
   }
 }
