@@ -149,7 +149,7 @@ class Component {
 			$components,
 			function( $accumulator, Component $item ) {
 				// Get subdirectory slug from title.
-				$key = substr( $item->get_title() .'/', 0, strpos( $item->get_title(), '/'));
+				$key = substr( $item->get_title() . '/', 0, strpos( $item->get_title(), '/' ) );
 				// Return uncategorized or slugified title.
 				$key = empty( $key ) ? __( 'uncategorized', 'wp-component-library' ) : sanitize_title( $key );
 

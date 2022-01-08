@@ -185,15 +185,12 @@ if ( ! empty( $featured_component ) ) {
 					'items' => array_map(
 						function ( $key ) use ( $args, $grouped_components ) {
 							ob_start();
-							// Title.
+							// Subgroup Title.
 							wpcl_component(
 								'wpcl-heading',
 								[
 									'level' => 2,
-									'text'  => __(
-										ucfirst( $key ),
-										'wp-component-library'
-									),
+									'text'  => esc_html( ucfirst( $key ) ),
 								]
 							);
 							// Components.
