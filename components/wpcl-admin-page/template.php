@@ -173,6 +173,9 @@ if ( ! empty( $featured_component ) ) {
 			),
 		]
 	);
+	// Sort components array.
+	sort( $args['components'] );
+	$grouped_components = Component::group_by_subdirectory( $args['components'] );
 	wpcl_component(
 		'wpcl-layouts/sidebar-content',
 		[
@@ -180,15 +183,39 @@ if ( ! empty( $featured_component ) ) {
 				'wpcl-list',
 				[
 					'items' => array_map(
-						function ( Component $component ) use ( $args ) {
-							return sprintf(
-								'<a href="%s" data-wpcl-preview="%s">%s</a>',
-								esc_url( wpcl_admin_url( $component->get_name(), $args['dogfooding'] ) ),
-								esc_url( add_query_arg( [ 'inline' => 'true' ], wpcl_admin_url( $component->get_name(), $args['dogfooding'] ) ) ),
-								$component->get_title()
+						function ( $key ) use ( $args, $grouped_components ) {
+							ob_start();
+							// Title.
+							wpcl_component(
+								'wpcl-heading',
+								[
+									'level' => 2,
+									'text'  => __(
+										ucfirst( $key ),
+										'wp-component-library'
+									),
+								]
 							);
+							// Components.
+							wpcl_component(
+								'wpcl-list',
+								[
+									'items' => array_map(
+										function ( Component $component ) use ( $args ) {
+											return sprintf(
+												'<a href="%s" data-wpcl-preview="%s">%s</a>',
+												esc_url( wpcl_admin_url( $component->get_name(), $args['dogfooding'] ) ),
+												esc_url( add_query_arg( [ 'inline' => 'true' ], wpcl_admin_url( $component->get_name(), $args['dogfooding'] ) ) ),
+												$component->get_title()
+											);
+										},
+										$grouped_components[ $key ]
+									),
+								],
+							);
+							return ob_get_clean();
 						},
-						$args['components']
+						array_keys( $grouped_components )
 					),
 				],
 				true
