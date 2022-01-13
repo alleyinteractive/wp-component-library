@@ -92,7 +92,12 @@ function wpcl_attributes( array $attributes, ?array $args = null ): void {
 function wpcl_blocks( ?array $blocks = null ): void {
 	global $post;
 
-	$blocks ??= parse_blocks( $post->post_content );
+	/**
+	 * Allows for modification of the Gutenberg blocks that will be rendered.
+	 *
+	 * @param array $blocks The parsed Gutenberg Blocks.
+	 */
+	$blocks ??= apply_filters( 'wpcl_blocks', parse_blocks( $post->post_content ) );
 
 	foreach ( $blocks as $block ) {
 		Block_Parser::factory( $block )->render();
