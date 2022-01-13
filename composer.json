@@ -28,5 +28,10 @@
     "phpcs": "phpcs . --runtime-set text_domain wp-component-library",
     "phpunit": "phpunit"
   },
-  "type": "project"
+  "type": "project",
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
 }

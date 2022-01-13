@@ -138,6 +138,37 @@ class Component {
 	}
 
 	/**
+	 * Group items from an array together by some criteria or value.
+	 *
+	 * @param array $components An array of WP_Component_LIbrary\Component elements.
+	 *
+	 * @return array array of arrays grouped by key.
+	 */
+	public static function group_by_subdirectory( $components ): array {
+		$subgroups = array_reduce(
+			$components,
+			function( $accumulator, Component $item ) {
+				// Get subdirectory slug from title.
+				$key = substr( $item->get_title() . '/', 0, strpos( $item->get_title(), '/' ) );
+				// Return uncategorized or slugified title.
+				$key = empty( $key ) ? __( 'uncategorized', 'wp-component-library' ) : sanitize_title( $key );
+
+				// If we have a key already, add to the list.
+				if ( ! array_key_exists( $key, $accumulator ) ) {
+					$accumulator[ $key ] = [];
+				}
+
+				array_push( $accumulator[ $key ], $item );
+				return $accumulator;
+			},
+			[]
+		);
+		// Sort keys alphabetically.
+		ksort( $subgroups );
+		return $subgroups;
+	}
+
+	/**
 	 * Constructor. Accepts the name of the component.
 	 *
 	 * @param string $name    The name of the component.

@@ -26,15 +26,16 @@ establish the following directory structure:
   * themes
     * {theme-name}
       * components
-        * {component-name}
-          * component.json - A JSON file containing a title for the component,
-            props for the component, and example data for admin previews. See
-            below for more info.
-          * README.md - An explanation of what the component is, what props it
-            accepts, and how it should be used.
-          * style.scss - Optional. A stylesheet that defines styles for the
-            component. See the Loading Styles section below for more info.
-          * template.php - The file that renders the component.
+        * {group name} (optional)
+            * {component-name}
+            * component.json - A JSON file containing a title for the component,
+                props for the component, and example data for admin previews. See
+                below for more info.
+            * README.md - An explanation of what the component is, what props it
+                accepts, and how it should be used.
+            * style.scss - Optional. A stylesheet that defines styles for the
+                component. See the Loading Styles section below for more info.
+            * template.php - The file that renders the component.
 
 For examples, look in the
 [components directory](components).
@@ -65,6 +66,8 @@ An array of objects defining props for the component, the spec for which is as f
 
 A string that names the component when it is viewed in the admin. For example,
 "Button."
+
+Titles may include subgroups separated by a `/`, for example, "Elements/Button". This will organize the display of components in the component viewer by those subgroups.
 
 #### Props for `core/*` blocks
 
@@ -159,15 +162,15 @@ to a component via props.
 
 ```php
 <a
-	<?php
-		wpcl_attributes(
-			[
-				'class' => [ 'class-1', [ 'class-2', 'class-3' ], [ 'class-4' => $maybe_include ] ],
-				'href'  => 'https://www.example.org/',
-			],
-			$args
-		);
-	?>
+    <?php
+        wpcl_attributes(
+            [
+                'class' => [ 'class-1', [ 'class-2', 'class-3' ], [ 'class-4' => $maybe_include ] ],
+                'href'  => 'https://www.example.org/',
+            ],
+            $args
+        );
+    ?>
 >
 ```
 
