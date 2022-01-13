@@ -47,7 +47,7 @@ function wpcl_admin_url( string $component, bool $dogfooding ): string {
 function wpcl_attributes( array $attributes, ?array $args = null ): void {
 	// Merge class and id from args, if present.
 	$attributes['class'] = classNames( $attributes['class'] ?? '', $args['class'] ?? '' );
-	$attributes['id']    = $args['id'] ?: $attributes['id'] ?: '';
+	$attributes['id']    = $attributes['id'] ?? $args['id'] ?? '';;
 
 	// Loop over attributes, escape, and compile the list for output.
 	$attribute_list = [];
