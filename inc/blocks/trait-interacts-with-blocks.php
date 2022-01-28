@@ -87,7 +87,11 @@ trait Interacts_With_Blocks {
 	public function render_fallback(): void {
 		// We need to apply the_content filter to any default
 		// content for things like embeds to work properly.
+		// Remove autop during render.
+		remove_filter( 'the_content', 'wpautop' );
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		echo apply_filters( 'the_content', render_block( $this->raw ) );
+		// Readd autop after echo.
+		add_filter( 'the_content', 'wpautop' );
 	}
 }
