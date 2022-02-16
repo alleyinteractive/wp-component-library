@@ -29,6 +29,7 @@ class Image extends Anonymous {
 		$this->attrs['image_id'] = $this->attrs['id'];
 		$this->attrs['size']     = $this->attrs['sizeSlug'] ?? '';
 		$this->attrs['link']     = 'none' !== $this->attrs['linkDestination'] ? $this->get_link() : '';
+		$this->attrs['caption']  = $this->get_caption();
 
 		$this->render_component( $this->attrs );
 	}
@@ -42,5 +43,15 @@ class Image extends Anonymous {
 	private function get_link( string $fallback = '' ): string {
 		$maybe_url = optional( $this->dom_parser->find( 'a', 0 ) )->getAttribute( 'href' );
 		return $maybe_url ?? $fallback;
+	}
+
+	/**
+	 * Get the caption if it exists.
+	 *
+	 * @return string
+	 */
+	private function get_caption(): string {
+		$caption = optional( $this->dom_parser->find( 'figcaption', 0 ) )->innerHtml() ?? '';
+		return $caption;
 	}
 }
