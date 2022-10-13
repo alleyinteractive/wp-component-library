@@ -73,7 +73,7 @@ class Test_Component extends WP_UnitTestCase {
 	/**
 	 * Actions to be run before every test.
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		add_filter( 'wpcl_component_path', [ $this, 'filter_wpcl_component_path' ], 10, 2 );
 	}
@@ -81,7 +81,7 @@ class Test_Component extends WP_UnitTestCase {
 	/**
 	 * Actions to be run after every test.
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 		remove_filter( 'wpcl_component_path', [ $this, 'filter_wpcl_component_path' ] );
 	}

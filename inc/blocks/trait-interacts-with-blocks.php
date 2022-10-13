@@ -46,7 +46,7 @@ trait Interacts_With_Blocks {
 		$this->attrs['raw'] = $raw_block;
 
 		// Load the block's HTML as an initial root for the DOM parser.
-		$this->dom_parser->loadStr( trim( $this->raw['innerHTML'] ) );
+		$this->dom_parser->loadStr( trim( $this->raw['innerHTML'] ?? '' ) );
 	}
 
 	/**

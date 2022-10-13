@@ -26,12 +26,10 @@ class Block_Parser {
 
 		try {
 			// This will attempt to use any registered autoloader.
-			// If no class is found, we'll fallabck to an Anonymous block.
+			// If no class is found, we'll fall back to an anonymous block.
 			$block = new $class_to_load( $raw_block );
 		} catch ( \Throwable $e ) {
 			$block = new Anonymous( $raw_block );
-			// translators: class name.
-			! empty( $class_to_load ) && wpcl_log( sprintf( __( '%s was not found. You may need to dump your autoloader.', 'wp-component-library' ), $class_to_load ) );
 		}
 
 		return $block;
