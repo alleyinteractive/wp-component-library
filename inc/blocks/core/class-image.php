@@ -26,7 +26,7 @@ class Image extends Anonymous {
 			$this->attrs[ $attr ] = $value;
 		}
 
-		$this->attrs['image_id'] = $this->attrs['id'];
+		$this->attrs['image_id'] = $this->attrs['id'] ?? 0;
 		$this->attrs['size']     = $this->attrs['sizeSlug'] ?? '';
 		$this->attrs['link']     = 'none' !== $this->attrs['linkDestination'] ? $this->get_link() : '';
 		$this->attrs['caption']  = $this->get_caption();
