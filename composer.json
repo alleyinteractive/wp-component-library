@@ -28,7 +28,7 @@
     "illuminate/support": "^8.69"
   },
   "require-dev": {
-    "alleyinteractive/alley-coding-standards": "^0.3.0",
+    "alleyinteractive/alley-coding-standards": "^1.0.1",
     "yoast/phpunit-polyfills": "^2.0"
   },
   "scripts": {
