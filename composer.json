@@ -13,7 +13,7 @@
       "dealerdirect/phpcodesniffer-composer-installer": true
     },
     "platform": {
-      "php": "8.0"
+      "php": "8.1"
     }
   },
   "description": "WP Component Library",
@@ -24,7 +24,7 @@
     "league/commonmark": "^2.0",
     "scrivo/highlight.php": "^v9.18",
     "paquettg/php-html-parser": "^3.1",
-    "php": "8.0.*",
+    "php": "^8.1",
     "illuminate/support": "^8.69"
   },
   "require-dev": {
