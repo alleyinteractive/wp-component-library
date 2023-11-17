@@ -28,7 +28,8 @@
     "illuminate/support": "^8.69"
   },
   "require-dev": {
-    "alleyinteractive/alley-coding-standards": "^0.3.0"
+    "alleyinteractive/alley-coding-standards": "^0.3.0",
+    "phpunit/phpunit": "^9.5"
   },
   "scripts": {
     "phpcbf": "phpcbf .",
