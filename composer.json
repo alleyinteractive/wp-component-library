@@ -29,7 +29,8 @@
   },
   "require-dev": {
     "alleyinteractive/alley-coding-standards": "^0.3.0",
-    "phpunit/phpunit": "^9.5"
+    "phpunit/phpunit": "^9.6",
+    "yoast/phpunit-polyfills": "^1.0"
   },
   "scripts": {
     "phpcbf": "phpcbf .",
