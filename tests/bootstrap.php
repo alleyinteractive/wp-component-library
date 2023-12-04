@@ -6,9 +6,6 @@
  * @subpackage Tests
  */
 
-// Map path to phpunit-polyfills for WordPress >= 5.9.
-const WP_TESTS_PHPUNIT_POLYFILLS_PATH = __DIR__ . '/../vendor/yoast/phpunit-polyfills'; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
-
 // Load Core's test suite.
 $wp_component_library_tests_dir = getenv( 'WP_TESTS_DIR' );
 if ( ! $wp_component_library_tests_dir ) {
