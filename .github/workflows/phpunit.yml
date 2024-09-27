@@ -23,7 +23,7 @@ jobs:
         can_fail: [false]
         multisite: [0,1]
 
-    name: phpunit 8.1 @ WP ${{ matrix.wp_version }} WP_MULTISITE=${{ matrix.multisite }}
+    name: phpunit 8.3 @ WP ${{ matrix.wp_version }} WP_MULTISITE=${{ matrix.multisite }}
     env:
       CACHEDIR: /tmp/test-cache
       WP_CORE_DIR: /tmp/wordpress/
@@ -55,7 +55,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.3'
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd
           tools: composer:v2
           coverage: none
