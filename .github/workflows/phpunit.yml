@@ -70,6 +70,9 @@ jobs:
           max_attempts: 5
           command: composer install
 
+      - name: Install Subversion
+        run: sudo apt-get update && sudo apt-get install -y subversion
+
       - name: Install WordPress and Copy Project
         shell: bash
         run: |
