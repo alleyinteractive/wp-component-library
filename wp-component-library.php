@@ -11,7 +11,7 @@
  * Plugin Name: WP Component Library
  * Plugin URI: https://github.com/alleyinteractive/wp-component-library
  * Description: Component library functionality for your WordPress theme.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Alley
  */
 

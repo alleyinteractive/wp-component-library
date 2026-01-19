@@ -8,6 +8,7 @@
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 use WP_Component_Library\Block_Parser;
 use WP_Component_Library\Component;
+use function Mantle\Support\Helpers\classname;
 
 /**
  * Builds a URL to the WP Component Library admin page given configuration
@@ -46,7 +47,7 @@ function wpcl_admin_url( string $component, bool $dogfooding ): string {
  */
 function wpcl_attributes( array $attributes, ?array $args = null ): void {
 	// Merge class and id from args, if present.
-	$attributes['class'] = classNames( $attributes['class'] ?? '', $args['class'] ?? '' );
+	$attributes['class'] = classname( $attributes['class'] ?? '', $args['class'] ?? '' );
 	$attributes['id']    = $attributes['id'] ?? $args['id'] ?? '';
 
 

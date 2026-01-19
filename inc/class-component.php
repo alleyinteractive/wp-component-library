@@ -147,7 +147,7 @@ class Component {
 	public static function group_by_subdirectory( $components ): array {
 		$subgroups = array_reduce(
 			$components,
-			function( $accumulator, Component $item ) {
+			function ( $accumulator, Component $item ) {
 				// Get subdirectory slug from title.
 				$key = substr( $item->get_title() . '/', 0, strpos( $item->get_title(), '/' ) );
 				// Return uncategorized or slugified title.
@@ -294,7 +294,7 @@ class Component {
 	 *
 	 * @return bool True if the component template exists. False otherwise.
 	 */
-	public function render() : bool {
+	public function render(): bool {
 		try {
 			// Ensure the template file exists before attempting to render it.
 			if ( ! file_exists( sprintf( '%s/template.php', $this->path ) ) ) {

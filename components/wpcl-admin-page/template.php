@@ -84,7 +84,7 @@ if ( ! empty( $featured_component ) ) {
 			),
 		]
 	);
-	for ( $i = 0; $i < $total_examples; $i ++ ) {
+	for ( $i = 0; $i < $total_examples; $i++ ) {
 		$featured_component->load_example_data( $i );
 		wpcl_component(
 			'wpcl-heading',
