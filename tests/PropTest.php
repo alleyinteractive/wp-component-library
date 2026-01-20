@@ -6,6 +6,7 @@
  * @subpackage Tests
  */
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use WP_Component_Library\Prop;
 
 /**
@@ -14,7 +15,7 @@ use WP_Component_Library\Prop;
  * @package WP_Component_Library
  * @subpackage Tests
  */
-class Test_Prop extends WP_UnitTestCase {
+class PropTest extends WP_UnitTestCase {
 	/**
 	 * A helper function for creating a test prop with a given type.
 	 *
@@ -40,7 +41,7 @@ class Test_Prop extends WP_UnitTestCase {
 	 *
 	 * @return array An array of arrays representing function arguments.
 	 */
-	public function data_set_default(): array {
+	public static function data_set_default(): array {
 		return [
 			'Test array default'  => [ 'array', [] ],
 			'Test bool default'   => [ 'bool', false ],
@@ -57,7 +58,7 @@ class Test_Prop extends WP_UnitTestCase {
 	 *
 	 * @return array An array of arrays representing function arguments.
 	 */
-	public function data_set_value(): array {
+	public static function data_set_value(): array {
 		return [
 			'Test setting an array'  => [ 'array', [], [ 'foo', 'bar' ] ],
 			'Test setting a bool'    => [ 'bool', false, true ],
@@ -74,7 +75,7 @@ class Test_Prop extends WP_UnitTestCase {
 	 *
 	 * @return array An array of arrays representing function arguments.
 	 */
-	public function data_validate_config(): array {
+	public static function data_validate_config(): array {
 		return [
 			'Test setting nothing at all'  => [
 				'',
@@ -256,11 +257,10 @@ class Test_Prop extends WP_UnitTestCase {
 	/**
 	 * Tests the behavior of dynamic default values based on type.
 	 *
-	 * @dataProvider data_set_default
-	 *
 	 * @param string $type     The type to test.
 	 * @param mixed  $expected The expected default value.
 	 */
+	#[DataProvider( 'data_set_default' )]
 	public function test_set_default( string $type, $expected ) {
 		$prop = $this->create_test_prop( $type );
 		$this->assertEquals( $expected, $prop->get_default() );
@@ -270,12 +270,11 @@ class Test_Prop extends WP_UnitTestCase {
 	 * Tests the behavior of the set value function, ensuring that it correctly
 	 * sets the value and replaces the default value.
 	 *
-	 * @dataProvider data_set_value
-	 *
 	 * @param string $type    The data type to use when registering the prop.
 	 * @param mixed  $default The default value to check against before setting the value.
 	 * @param mixed  $value   The value to set and check against.
 	 */
+	#[DataProvider( 'data_set_value' )]
 	public function test_set_value( string $type, $default, $value ) {
 		$prop = $this->create_test_prop( $type );
 		$this->assertEquals( $default, $prop->get_value() );
@@ -286,13 +285,11 @@ class Test_Prop extends WP_UnitTestCase {
 	/**
 	 * Tests the behavior of the validate_config function.
 	 *
-	 * @dataProvider data_validate_config
-	 *
 	 * @param string $name       The prop name.
 	 * @param array  $properties An array of key/value pairs to apply.
 	 * @param array  $errors     Expected errors when validating the config.
 	 */
-	public function test_validate_config( string $name, array $properties, array $errors ) {
+	#[DataProvider( 'data_validate_config' )]   public function test_validate_config( string $name, array $properties, array $errors ) {
 		$prop = new Prop( $name, $properties );
 		$this->assertEquals( $errors, $prop->validate_config() );
 	}

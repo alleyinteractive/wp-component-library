@@ -1,5 +1,11 @@
 # WP Component Library
 
+> [!NOTE]
+> This plugin is no longer actively maintained. For a more modern approach to building
+> component-based WordPress themes, consider using
+> [`create-wordpress-plugin](https://github.com/alleyinteractive/create-wordpress-plugin)`
+> to scaffold blocks for a block-based theme.
+
 A plugin to list and preview components from the active theme's component
 library in the WordPress admin. Also provides helper functions for loading
 components in your theme so you can build with components atomically, similar

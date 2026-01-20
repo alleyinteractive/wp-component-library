@@ -6,6 +6,7 @@
  * @subpackage Tests
  */
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use WP_Component_Library\Component;
 
 /**
@@ -14,14 +15,14 @@ use WP_Component_Library\Component;
  * @package WP_Component_Library
  * @subpackage Tests
  */
-class Test_Component extends WP_UnitTestCase {
+class ComponentTest extends WP_UnitTestCase {
 	/**
 	 * A data provider for the test_render function. Returns an array of arrays
 	 * representing function arguments.
 	 *
 	 * @return array An array of arrays representing function arguments.
 	 */
-	public function data_render(): array {
+	public static function data_render(): array {
 		return [
 			'Test Button example 1'            => [
 				'button',
@@ -143,12 +144,11 @@ class Test_Component extends WP_UnitTestCase {
 	 * Tests the component by loading example data for the example component and
 	 * rendering it.
 	 *
-	 * @dataProvider data_render
-	 *
 	 * @param string $component The name of the sample component to load.
 	 * @param int    $index     The index of the example to load.
 	 * @param string $expected  The expected HTML output, minus newlines, and with whitespace trimmed.
 	 */
+	#[DataProvider( 'data_render' )]
 	public function test_render( string $component, int $index, string $expected ) {
 		// Render the component's output.
 		$component = new Component( $component, [], 'preview' );
@@ -161,7 +161,7 @@ class Test_Component extends WP_UnitTestCase {
 		// Clean up the component's output by running it through DOMDocument to strip whitespace.
 		libxml_use_internal_errors( true );
 		$doc = new DOMDocument();
-		$doc->loadHTML( mb_convert_encoding( $output, 'HTML-ENTITIES', 'UTF-8' ) );
+		$doc->loadHTML( '<?xml encoding="UTF-8">' . $output );
 		$xpath  = new DOMXPath( $doc );
 		$node   = $xpath->query( '//body' )->item( 0 )->childNodes->item( 0 );
 		$output = $node->ownerDocument->saveHTML( $node ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
