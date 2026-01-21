@@ -27,7 +27,7 @@ class Gallery extends Anonymous {
 		}
 
 		$this->attrs['items']   = $this->attrs['ids'];
-		$this->attrs['caption'] = optional( $root->find( '.blocks-gallery-caption', 0 ) )->innerHtml() ?? '';
+		$this->attrs['caption'] = $root->find( '.blocks-gallery-caption', 0 )?->innerHtml() ?? '';
 
 		$this->render_component( $this->attrs );
 	}

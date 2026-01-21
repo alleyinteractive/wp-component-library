@@ -29,7 +29,7 @@ class Video extends Anonymous {
 		}
 
 		// Attributes from the Video element for loop/controls/autoplay/etc.
-		foreach ( optional( $video )->getAttributes() ?? [] as $attr => $value ) {
+		foreach ( $video?->getAttributes() ?? [] as $attr => $value ) {
 			$this->attrs[ $attr ] = $value ?? true;
 		}
 

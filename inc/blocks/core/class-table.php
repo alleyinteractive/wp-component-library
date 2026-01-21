@@ -31,7 +31,7 @@ class Table extends Anonymous {
 		$this->attrs['header']   = $this->extract_header();
 		$this->attrs['footer']   = $this->extract_footer();
 		$this->attrs['body']     = $this->extract_body();
-		$this->attrs['citation'] = optional( $this->root->find( 'figcaption', 0 ) )->innerHtml() ?? '';
+		$this->attrs['citation'] = $this->root->find( 'figcaption', 0 )?->innerHtml() ?? '';
 
 		$this->render_component( $this->attrs );
 	}

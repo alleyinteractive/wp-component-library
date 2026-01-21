@@ -29,7 +29,7 @@ class Audio extends Anonymous {
 		}
 
 		// Attributes from the audio element for loop/controls/autoplay/etc.
-		foreach ( optional( $audio )->getAttributes() ?? [] as $attr => $value ) {
+		foreach ( $audio?->getAttributes() ?? [] as $attr => $value ) {
 			$this->attrs[ $attr ] = $value ?? true;
 		}
 

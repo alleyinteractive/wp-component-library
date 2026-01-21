@@ -43,7 +43,7 @@ class Image extends Anonymous {
 	 * @return string
 	 */
 	private function get_link( string $fallback = '' ): string {
-		$maybe_url = optional( $this->dom_parser->find( 'a', 0 ) )->getAttribute( 'href' );
+		$maybe_url = $this->dom_parser->find( 'a', 0 )?->getAttribute( 'href' );
 		return $maybe_url ?? $fallback;
 	}
 
@@ -53,7 +53,7 @@ class Image extends Anonymous {
 	 * @return string
 	 */
 	private function get_caption(): string {
-		$caption = optional( $this->dom_parser->find( 'figcaption', 0 ) )->innerHtml() ?? '';
+		$caption = $this->dom_parser->find( 'figcaption', 0 )?->innerHtml() ?? '';
 		return $caption;
 	}
 }
