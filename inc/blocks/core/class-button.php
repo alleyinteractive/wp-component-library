@@ -27,7 +27,7 @@ class Button extends Anonymous {
 			$this->attrs[ $attr ] = $value;
 		}
 
-		foreach ( optional( $link )->getAttributes() ?? [] as $attr => $value ) {
+		foreach ( $link?->getAttributes() ?? [] as $attr => $value ) {
 			$this->attrs['linkAttributes'][ $attr ] = $value;
 		}
 
@@ -36,7 +36,7 @@ class Button extends Anonymous {
 		$this->attrs['link'] = $this->attrs['linkAttributes']['href'] ?? '';
 		unset( $this->attrs['linkAttributes']['href'] );
 
-		$this->attrs['content'] = optional( $link )->innerHtml() ?? '';
+		$this->attrs['content'] = $link?->innerHtml() ?? '';
 
 		$this->render_component( $this->attrs );
 	}
