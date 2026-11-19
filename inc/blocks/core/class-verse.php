@@ -20,9 +20,9 @@ class Verse extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
-		$root = $this->dom_parser->firstChild();
+		$root = $this->dom_parser->first_child();
 
-		foreach ( $root->getAttributes() as $attr => $value ) {
+		foreach ( $root->get_attributes() as $attr => $value ) {
 			$this->attrs[ $attr ] = $value;
 		}
 

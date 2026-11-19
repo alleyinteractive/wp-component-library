@@ -7,7 +7,7 @@
 
 namespace WP_Component_Library\Blocks\Core;
 
-use PHPHtmlParser\Dom\Node\HtmlNode;
+use WP_Component_Library\Blocks\Html_Node;
 use WP_Component_Library\Blocks\Anonymous;
 
 /**
@@ -22,30 +22,30 @@ class ListBlock extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
-		$root = $this->dom_parser->firstChild();
+		$root = $this->dom_parser->first_child();
 
-		foreach ( $root->getAttributes() as $attr => $value ) {
+		foreach ( $root->get_attributes() as $attr => $value ) {
 			$this->attrs[ $attr ] = $value;
 		}
 
-		$this->attrs['type']  = $root->tag->name() === 'ol' ? 'ordered' : 'unordered';
+		$this->attrs['type']  = $root->tag_name() === 'ol' ? 'ordered' : 'unordered';
 		$this->attrs['items'] = $this->get_children( $root );
 
 		$this->render_component( $this->attrs );
 	}
 
 	/**
-	 * Get the children of an HtmlNode, with/out the surrounding tag.
+	 * Get the children of an Html_Node, with/out the surrounding tag.
 	 *
-	 * @param HtmlNode $el The HTML node to retrieve children from.
-	 * @param bool     $include_tag Include the outer tag of the input element's children.
+	 * @param Html_Node $el The HTML node to retrieve children from.
+	 * @param bool      $include_tag Include the outer tag of the input element's children.
 	 * @return array
 	 */
-	private function get_children( HtmlNode $el, $include_tag = false ): array {
+	private function get_children( Html_Node $el, $include_tag = false ): array {
 		$children = [];
 
-		foreach ( $el->getChildren() as $child ) {
-			$children[] = $include_tag ? $child->outerHtml() : $child->innerHtml();
+		foreach ( $el->get_children() as $child ) {
+			$children[] = $include_tag ? $child->outer_html() : $child->inner_html();
 		}
 
 		return $children;

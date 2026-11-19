@@ -21,15 +21,15 @@ class Video extends Anonymous {
 	 */
 	public function render(): void {
 		// Videos are wrapped in a <figure> element.
-		$root  = $this->dom_parser->firstChild();
-		$video = $root->find( 'video', 0 );
+		$root  = $this->dom_parser->first_child();
+		$video = $root->first( 'video' );
 
-		foreach ( $root->getAttributes() as $attr => $value ) {
+		foreach ( $root->get_attributes() as $attr => $value ) {
 			$this->attrs[ $attr ] = $value;
 		}
 
 		// Attributes from the Video element for loop/controls/autoplay/etc.
-		foreach ( $video?->getAttributes() ?? [] as $attr => $value ) {
+		foreach ( $video?->get_attributes() ?? [] as $attr => $value ) {
 			$this->attrs[ $attr ] = $value ?? true;
 		}
 

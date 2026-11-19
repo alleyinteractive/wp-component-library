@@ -13,7 +13,6 @@
     "php": "^8.3",
     "league/commonmark": "^2.0",
     "mantle-framework/support": "^1.14",
-    "paquettg/php-html-parser": "^3.1",
     "scrivo/highlight.php": "^9.18"
   },
   "require-dev": {

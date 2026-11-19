@@ -20,14 +20,14 @@ class Gallery extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
-		$root = $this->dom_parser->firstChild();
+		$root = $this->dom_parser->first_child();
 
-		foreach ( $root->getAttributes() as $attr => $value ) {
+		foreach ( $root->get_attributes() as $attr => $value ) {
 			$this->attrs[ $attr ] = $value;
 		}
 
 		$this->attrs['items']   = $this->attrs['ids'];
-		$this->attrs['caption'] = $root->find( '.blocks-gallery-caption', 0 )?->innerHtml() ?? '';
+		$this->attrs['caption'] = $root->first( '.blocks-gallery-caption' )?->inner_html() ?? '';
 
 		$this->render_component( $this->attrs );
 	}

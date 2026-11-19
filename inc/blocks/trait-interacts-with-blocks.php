@@ -7,8 +7,6 @@
 
 namespace WP_Component_Library\Blocks;
 
-use PHPHtmlParser\Dom;
-
 trait Interacts_With_Blocks {
 	/**
 	 * The raw block data.
@@ -25,11 +23,11 @@ trait Interacts_With_Blocks {
 	protected array $attrs;
 
 	/**
-	 * The DOM parser instance.
+	 * The block's parsed HTML. Its children are the block's top-level elements.
 	 *
-	 * @var Dom
+	 * @var Html_Node
 	 */
-	protected object $dom_parser;
+	protected Html_Node $dom_parser;
 
 	/**
 	 * Undocumented function
@@ -38,15 +36,13 @@ trait Interacts_With_Blocks {
 	 * @return void
 	 */
 	public function __construct( array $raw_block ) {
-		$this->raw        = $raw_block;
-		$this->attrs      = $raw_block['attrs'];
-		$this->dom_parser = new Dom();
-
+		$this->raw   = $raw_block;
+		$this->attrs = $raw_block['attrs'];
 		// Escape hatch for components that may want to render the original block.
 		$this->attrs['raw'] = $raw_block;
 
 		// Load the block's HTML as an initial root for the DOM parser.
-		$this->dom_parser->loadStr( trim( $this->raw['innerHTML'] ?? '' ) );
+		$this->dom_parser = Html_Node::from_html( trim( $this->raw['innerHTML'] ?? '' ) );
 	}
 
 	/**

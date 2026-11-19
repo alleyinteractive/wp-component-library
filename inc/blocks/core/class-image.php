@@ -20,9 +20,9 @@ class Image extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
-		$root = $this->dom_parser->firstChild()->find( 'img', 0 );
+		$root = $this->dom_parser->first_child()->first( 'img' );
 
-		foreach ( $root->getAttributes() as $attr => $value ) {
+		foreach ( $root->get_attributes() as $attr => $value ) {
 			$this->attrs[ $attr ] = $value;
 		}
 
@@ -43,7 +43,7 @@ class Image extends Anonymous {
 	 * @return string
 	 */
 	private function get_link( string $fallback = '' ): string {
-		$maybe_url = $this->dom_parser->find( 'a', 0 )?->getAttribute( 'href' );
+		$maybe_url = $this->dom_parser->first( 'a' )?->get_attribute( 'href' );
 		return $maybe_url ?? $fallback;
 	}
 
@@ -53,7 +53,7 @@ class Image extends Anonymous {
 	 * @return string
 	 */
 	private function get_caption(): string {
-		$caption = $this->dom_parser->find( 'figcaption', 0 )?->innerHtml() ?? '';
+		$caption = $this->dom_parser->first( 'figcaption' )?->inner_html() ?? '';
 		return $caption;
 	}
 }

@@ -20,14 +20,14 @@ class Heading extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
-		$root = $this->dom_parser->firstChild();
+		$root = $this->dom_parser->first_child();
 
-		foreach ( $root->getAttributes() as $attr => $value ) {
+		foreach ( $root->get_attributes() as $attr => $value ) {
 			$this->attrs[ $attr ] = $value;
 		}
 
-		$this->attrs['level'] = absint( str_replace( 'h', '', $root->tag->name() ) );
-		$this->attrs['text']  = $root->innerHtml();
+		$this->attrs['level'] = absint( str_replace( 'h', '', $root->tag_name() ) );
+		$this->attrs['text']  = $root->inner_html();
 
 		$this->render_component( $this->attrs );
 	}

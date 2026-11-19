@@ -67,7 +67,7 @@ class ComponentTest extends WP_UnitTestCase {
 	 *
 	 * @return string The path to the test component with the given name in the tests directory of this plugin.
 	 */
-	public function filter_wpcl_component_path( string $path, string $name ): string {
+	public function filter_wpcl_component_path( $path, string $name ): string {
 		return sprintf( '%s/components/%s', __DIR__, $name );
 	}
 

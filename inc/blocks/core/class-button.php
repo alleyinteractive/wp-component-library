@@ -20,14 +20,14 @@ class Button extends Anonymous {
 	 * @return void
 	 */
 	public function render(): void {
-		$root = $this->dom_parser->firstChild();
-		$link = $root->find( 'a', 0 );
+		$root = $this->dom_parser->first_child();
+		$link = $root->first( 'a' );
 
-		foreach ( $root->getAttributes() as $attr => $value ) {
+		foreach ( $root->get_attributes() as $attr => $value ) {
 			$this->attrs[ $attr ] = $value;
 		}
 
-		foreach ( $link?->getAttributes() ?? [] as $attr => $value ) {
+		foreach ( $link?->get_attributes() ?? [] as $attr => $value ) {
 			$this->attrs['linkAttributes'][ $attr ] = $value;
 		}
 
@@ -36,7 +36,7 @@ class Button extends Anonymous {
 		$this->attrs['link'] = $this->attrs['linkAttributes']['href'] ?? '';
 		unset( $this->attrs['linkAttributes']['href'] );
 
-		$this->attrs['content'] = $link?->innerHtml() ?? '';
+		$this->attrs['content'] = $link?->inner_html() ?? '';
 
 		$this->render_component( $this->attrs );
 	}

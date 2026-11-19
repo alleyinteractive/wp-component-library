@@ -21,15 +21,15 @@ class Audio extends Anonymous {
 	 */
 	public function render(): void {
 		// Audio is wrapped in a <figure> element.
-		$root  = $this->dom_parser->firstChild();
-		$audio = $root->find( 'audio', 0 );
+		$root  = $this->dom_parser->first_child();
+		$audio = $root->first( 'audio' );
 
-		foreach ( $root->getAttributes() as $attr => $value ) {
+		foreach ( $root->get_attributes() as $attr => $value ) {
 			$this->attrs[ $attr ] = $value;
 		}
 
 		// Attributes from the audio element for loop/controls/autoplay/etc.
-		foreach ( $audio?->getAttributes() ?? [] as $attr => $value ) {
+		foreach ( $audio?->get_attributes() ?? [] as $attr => $value ) {
 			$this->attrs[ $attr ] = $value ?? true;
 		}
 
